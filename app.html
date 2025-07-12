@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Quản lý Linh kiện</title>
+    
+    <!-- Meta tags cho chia sẻ -->
+    <meta property="og:title" content="Hệ thống Quản lý Linh kiện">
+    <meta property="og:description" content="Quản lý và sắp xếp linh kiện một cách hiệu quả">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hệ thống Quản lý Linh kiện">
+    <meta name="twitter:description" content="Quản lý và sắp xếp linh kiện một cách hiệu quả">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1><i class="fas fa-microchip"></i> Hệ thống Quản lý Linh kiện</h1>
+                    <p>Quản lý và sắp xếp linh kiện một cách hiệu quả</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span id="currentUserDisplay">Người dùng</span>
+                        <button id="logoutBtn" class="btn btn-logout">
+                            <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="controls">
+            <div class="search-section">
+                <input type="text" id="searchInput" placeholder="Tìm kiếm linh kiện..." class="search-input">
+                <select id="categoryFilter" class="filter-select">
+                    <option value="">Tất cả chủ đề</option>
+                    <option value="Điện tử">Điện tử</option>
+                    <option value="Cơ khí">Cơ khí</option>
+                    <option value="Máy tính">Máy tính</option>
+                    <option value="Điện thoại">Điện thoại</option>
+                    <option value="Khác">Khác</option>
+                </select>
+            </div>
+            <div class="action-buttons">
+                <button id="addComponentBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Thêm Linh kiện
+                </button>
+                <button id="quickAddBtn" class="btn btn-success">
+                    <i class="fas fa-bolt"></i> Thêm Nhanh
+                </button>
+                <button id="manageUsersBtn" class="btn btn-info" style="display: none;">
+                    <i class="fas fa-users-cog"></i> Quản lý Tài khoản
+                </button>
+                <button id="shareBtn" class="btn btn-secondary">
+                    <i class="fas fa-share-alt"></i> Chia sẻ
+                </button>
+            </div>
+        </div>
+
+        <div class="status-tabs">
+            <button id="pendingTab" class="status-tab active">
+                <i class="fas fa-clock"></i> Chờ Kiểm tra
+                <span id="pendingCount" class="status-count">0</span>
+            </button>
+            <button id="checkedTab" class="status-tab">
+                <i class="fas fa-check-circle"></i> Đã Kiểm tra
+                <span id="checkedCount" class="status-count">0</span>
+            </button>
+            <button id="allTab" class="status-tab">
+                <i class="fas fa-list"></i> Tất cả
+                <span id="allCount" class="status-count">0</span>
+            </button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <i class="fas fa-microchip"></i>
+                <div>
+                    <h3 id="totalComponents">0</h3>
+                    <p>Tổng linh kiện</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-tags"></i>
+                <div>
+                    <h3 id="totalCategories">0</h3>
+                    <p>Chủ đề</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-users"></i>
+                <div>
+                    <h3 id="totalStaff">0</h3>
+                    <p>Nhân viên</p>
+                </div>
+            </div>
+            <div class="stat-card clickable" id="userSetupCard">
+                <i class="fas fa-user-cog"></i>
+                <div>
+                    <h3 id="currentUserName">Thiết lập</h3>
+                    <p>Tên người dùng</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="components-grid" id="componentsGrid">
+            <!-- Linh kiện sẽ được hiển thị ở đây -->
+        </div>
+    </div>
+
+    <!-- Modal thêm/sửa linh kiện -->
+    <div id="componentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Thêm Linh kiện Mới</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="componentForm">
+                <div class="form-group">
+                    <label for="componentName">Tên linh kiện:</label>
+                    <input type="text" id="componentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="componentCategory">Chủ đề:</label>
+                    <select id="componentCategory" required>
+                        <option value="">Chọn chủ đề</option>
+                        <option value="Điện tử">Điện tử</option>
+                        <option value="Cơ khí">Cơ khí</option>
+                        <option value="Máy tính">Máy tính</option>
+                        <option value="Điện thoại">Điện thoại</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="componentQuantity">Số lượng:</label>
+                    <input type="number" id="componentQuantity" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="componentPreparer">Người soạn:</label>
+                    <input type="text" id="componentPreparer" required>
+                </div>
+                <div class="form-group">
+                    <label for="componentInspector">Người kiểm tra:</label>
+                    <input type="text" id="componentInspector" required>
+                </div>
+                <div class="form-group">
+                    <label for="componentDescription">Mô tả:</label>
+                    <textarea id="componentDescription" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal thêm nhanh linh kiện -->
+    <div id="quickAddModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Thêm Nhanh Linh kiện</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="quickAddForm">
+                <div class="form-group">
+                    <label for="quickComponentName">Tên linh kiện:</label>
+                    <input type="text" id="quickComponentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="quickComponentCategory">Chủ đề:</label>
+                    <select id="quickComponentCategory" required>
+                        <option value="">Chọn chủ đề</option>
+                        <option value="Điện tử">Điện tử</option>
+                        <option value="Cơ khí">Cơ khí</option>
+                        <option value="Máy tính">Máy tính</option>
+                        <option value="Điện thoại">Điện thoại</option>
+                        <option value="Khác">Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quickComponentQuantity">Số lượng:</label>
+                    <input type="number" id="quickComponentQuantity" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="quickComponentPreparer">Người soạn (bạn):</label>
+                    <input type="text" id="quickComponentPreparer" required>
+                </div>
+                <div class="form-group">
+                    <label for="quickComponentInspector">Người kiểm tra:</label>
+                    <input type="text" id="quickComponentInspector" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelQuickBtn">Hủy</button>
+                    <button type="submit" class="btn btn-success">Thêm Nhanh</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal thiết lập người dùng -->
+    <div id="userSetupModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Thiết lập Tên Người dùng</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="userSetupForm">
+                <div class="form-group">
+                    <label for="userName">Tên của bạn:</label>
+                    <input type="text" id="userName" placeholder="Nhập tên của bạn" required>
+                    <small>Điều này sẽ được sử dụng làm tên mặc định khi thêm linh kiện nhanh</small>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelUserSetupBtn">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal quản lý tài khoản -->
+    <div id="userManagementModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2>Quản lý Tài khoản</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="user-management-controls">
+                    <button id="addUserBtn" class="btn btn-success">
+                        <i class="fas fa-user-plus"></i> Thêm Tài khoản
+                    </button>
+                </div>
+                
+                <div class="users-table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Tên đăng nhập</th>
+                                <th>Tên hiển thị</th>
+                                <th>Vai trò</th>
+                                <th>Ngày tạo</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Danh sách tài khoản sẽ được hiển thị ở đây -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thêm/sửa tài khoản -->
+    <div id="userFormModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="userFormTitle">Thêm Tài khoản Mới</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="newUsername">Tên đăng nhập:</label>
+                    <input type="text" id="newUsername" placeholder="Nhập tên đăng nhập" required>
+                    <small class="form-hint">Admin có thể đổi tên đăng nhập của tất cả tài khoản</small>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Mật khẩu:</label>
+                    <input type="password" id="newPassword" placeholder="Nhập mật khẩu" required>
+                </div>
+                <div class="form-group">
+                    <label for="newDisplayName">Tên hiển thị:</label>
+                    <input type="text" id="newDisplayName" placeholder="Nhập tên hiển thị" required>
+                </div>
+                <div class="form-group">
+                    <label for="newUserRoles">Vai trò:</label>
+                    <div class="roles-checkboxes">
+                        <label class="role-checkbox">
+                            <input type="checkbox" value="preparer" id="rolePreparer">
+                            <span class="checkmark"></span>
+                            Người soạn linh kiện
+                        </label>
+                        <label class="role-checkbox">
+                            <input type="checkbox" value="inspector" id="roleInspector">
+                            <span class="checkmark"></span>
+                            Người kiểm tra linh kiện
+                        </label>
+                        <label class="role-checkbox">
+                            <input type="checkbox" value="admin" id="roleAdmin">
+                            <span class="checkmark"></span>
+                            Quản trị viên
+                        </label>
+                    </div>
+                    <small>Chọn một hoặc nhiều vai trò cho người dùng</small>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelUserFormBtn">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal chia sẻ -->
+    <div id="shareModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Chia sẻ Hệ thống</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <div class="share-link">
+                        <label>Đường link chia sẻ:</label>
+                        <div class="link-container">
+                            <input type="text" id="shareLink" readonly>
+                            <button id="copyLinkBtn" class="btn btn-primary">
+                                <i class="fas fa-copy"></i> Sao chép
+                            </button>
+                        </div>
+                    </div>
+                    <div class="share-buttons">
+                        <button id="shareFacebookBtn" class="btn btn-facebook">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </button>
+                        <button id="shareTwitterBtn" class="btn btn-twitter">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                        <button id="shareLinkedInBtn" class="btn btn-linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </button>
+                        <button id="shareEmailBtn" class="btn btn-email">
+                            <i class="fas fa-envelope"></i> Email
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận xóa -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Xác nhận xóa</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xóa linh kiện này không?</p>
+                <p id="deleteComponentName"></p>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Hủy</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
