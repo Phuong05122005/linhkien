@@ -1231,72 +1231,67 @@ body {
     transform: rotate(180deg);
 }
 
+/* Dropdown filter đẹp, rõ ràng, không bị che khuất */
 .category-filter-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 2px solid #e9ecef;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 1000;
-    margin-top: 5px;
-    display: none;
-    min-width: 250px;
-    max-height: 400px;
-    overflow-y: auto;
-}
-
-.category-filter-dropdown.show {
-    display: block;
-    animation: dropdownSlideIn 0.3s ease;
-}
-
-@keyframes dropdownSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    background: #fff;
+    color: #222;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 20px 0 12px 0;
+    min-width: 260px;
+    max-width: 350px;
+    border: 1.5px solid #e2e8f0;
+    z-index: 1002 !important;
 }
 
 .category-filter-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 15px 10px;
-    border-bottom: 1px solid #e9ecef;
+    padding: 0 24px 10px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 10px;
 }
 
 .category-filter-header h4 {
+    color: #222;
+    font-size: 1.08rem;
+    font-weight: 700;
     margin: 0;
-    font-size: 0.9rem;
-    color: #495057;
+}
+
+.category-filter-header .btn-link {
+    color: #38a169;
     font-weight: 600;
-}
-
-.btn-link {
-    background: none;
-    border: none;
-    color: #4CAF50;
-    cursor: pointer;
-    font-size: 0.8rem;
-    text-decoration: underline;
-    padding: 0;
-}
-
-.btn-link:hover {
-    color: #45a049;
+    font-size: 1rem;
 }
 
 .category-checkboxes {
-    padding: 10px 15px;
-    max-height: 200px;
+    padding: 0 24px;
+    max-height: 180px;
     overflow-y: auto;
+}
+
+.category-checkbox-item label {
+    color: #222;
+    font-size: 1rem;
+    padding: 8px 0;
+}
+
+.category-filter-actions {
+    padding: 12px 24px 0 24px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+    .category-filter-dropdown {
+        min-width: 90vw;
+        max-width: 98vw;
+        padding: 12px 0 8px 0;
+    }
+    .category-filter-header, .category-checkboxes, .category-filter-actions {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 }
 
 .category-checkbox-item {
