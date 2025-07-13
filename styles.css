@@ -3045,3 +3045,41 @@ body {
     font-size: 0.9rem;
     line-height: 1.4;
 } 
+
+/* Modal footer fixed for add/edit component */
+.component-modal-footer, .modal-footer {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-top: 1px solid #e9ecef;
+    padding: 16px 24px 16px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    z-index: 10;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
+}
+
+/* Ensure modal content scrolls, not the whole modal */
+.component-modal-content, .modal-content {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-bottom: 90px; /* space for sticky footer */
+}
+
+@media (max-width: 768px) {
+    .component-modal-content, .modal-content {
+        max-height: 65vh;
+        padding-bottom: 110px;
+    }
+    .component-modal-footer, .modal-footer {
+        padding: 14px 10px;
+    }
+}
+
+/* Prevent button from being hidden by scrollbars */
+body.modal-open {
+    overflow: hidden;
+}
