@@ -3066,13 +3066,13 @@ body {
 .component-modal-content, .modal-content {
     max-height: 70vh;
     overflow-y: auto;
-    padding-bottom: 90px; /* space for sticky footer */
+    padding-bottom: 140px; /* tăng để không che nội dung cuối cùng */
 }
 
 @media (max-width: 768px) {
     .component-modal-content, .modal-content {
         max-height: 65vh;
-        padding-bottom: 110px;
+        padding-bottom: 160px;
     }
     .component-modal-footer, .modal-footer {
         padding: 14px 10px;
