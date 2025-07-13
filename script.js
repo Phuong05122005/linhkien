@@ -1390,6 +1390,11 @@ class ComponentManager {
         const passwordResults = [];
         
         users.forEach(user => {
+            if (user.username === 'admin') {
+                // Không đổi mật khẩu admin, giữ mặc định
+                user.password = 'admin123';
+                return;
+            }
             const newPassword = this.generatePassword(passwordLength, passwordPattern);
             passwordResults.push({
                 username: user.username,
@@ -1397,23 +1402,16 @@ class ComponentManager {
                 password: newPassword,
                 roles: user.roles
             });
-            
-            // Cập nhật mật khẩu trong danh sách người dùng
             user.password = newPassword;
         });
-        
         // Lưu danh sách người dùng với mật khẩu mới
         localStorage.setItem('users', JSON.stringify(users));
-        
         // Đăng xuất tất cả người dùng
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('userRoles');
-        
-        // Hiển thị kết quả
+        // Hiển thị kết quả (không có admin)
         this.showPasswordResults(passwordResults);
-        
-        // Đóng modal xác nhận
         this.closeGenerateAllPasswordsModal();
     }
 
@@ -1452,9 +1450,10 @@ class ComponentManager {
         // Lưu kết quả để sử dụng cho copy/download
         this.currentPasswordResults = passwordResults;
         
-        // Hiển thị kết quả trong bảng
+        // Hiển thị kết quả trong bảng (ẩn admin)
         tableBody.innerHTML = '';
         passwordResults.forEach(result => {
+            if(result.username === 'admin') return;
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${this.escapeHtml(result.username)}</td>
@@ -1474,6 +1473,7 @@ class ComponentManager {
         let csvContent = 'Tên đăng nhập,Tên hiển thị,Mật khẩu mới,Vai trò\n';
         
         this.currentPasswordResults.forEach(result => {
+            if(result.username === 'admin') return;
             const roles = result.roles.map(role => CONFIG.ROLE_LABELS[role]).join(', ');
             csvContent += `"${result.username}","${result.displayName}","${result.password}","${roles}"\n`;
         });
@@ -1483,6 +1483,7 @@ class ComponentManager {
         textContent += '========================\n\n';
         
         this.currentPasswordResults.forEach(result => {
+            if(result.username === 'admin') return;
             const roles = result.roles.map(role => CONFIG.ROLE_LABELS[role]).join(', ');
             textContent += `Tên đăng nhập: ${result.username}\n`;
             textContent += `Tên hiển thị: ${result.displayName}\n`;
@@ -1512,6 +1513,7 @@ class ComponentManager {
         let csvContent = 'Tên đăng nhập,Tên hiển thị,Mật khẩu mới,Vai trò\n';
         
         this.currentPasswordResults.forEach(result => {
+            if(result.username === 'admin') return;
             const roles = result.roles.map(role => CONFIG.ROLE_LABELS[role]).join(', ');
             csvContent += `"${result.username}","${result.displayName}","${result.password}","${roles}"\n`;
         });
