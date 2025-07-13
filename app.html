@@ -54,23 +54,6 @@
                         <span id="categoryFilterText">Tất cả chủ đề</span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div id="categoryFilterDropdown" class="category-filter-dropdown">
-                        <div class="category-filter-header">
-                            <h4>Chọn chủ đề (có thể chọn nhiều)</h4>
-                            <button type="button" id="selectAllCategories" class="btn-link">Chọn tất cả</button>
-                        </div>
-                        <div class="category-checkboxes" id="categoryCheckboxes">
-                            <!-- Categories will be populated by JavaScript -->
-                        </div>
-                        <div class="category-filter-actions">
-                            <button type="button" id="applyCategoryFilter" class="btn btn-primary btn-sm">
-                                <i class="fas fa-check"></i> Áp dụng
-                            </button>
-                            <button type="button" id="clearCategoryFilter" class="btn btn-secondary btn-sm">
-                                <i class="fas fa-times"></i> Xóa
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="action-buttons" id="actionButtons">
@@ -616,6 +599,26 @@
             <div class="form-actions">
                 <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Hủy</button>
                 <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal chọn chủ đề -->
+    <div id="categoryFilterModal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h2>Chọn chủ đề (có thể chọn nhiều)</h2>
+                <span class="close" id="closeCategoryFilterModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <button type="button" id="selectAllCategories" class="btn-link">Chọn tất cả</button>
+                <div class="category-checkboxes" id="categoryCheckboxes">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancelCategoryFilter">Hủy</button>
+                <button type="button" class="btn btn-primary" id="applyCategoryFilter"><i class="fas fa-check"></i> Áp dụng</button>
             </div>
         </div>
     </div>

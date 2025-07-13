@@ -101,8 +101,42 @@ class ComponentManager {
             }
         });
 
-        // Multi-category filter
-        this.setupMultiCategoryFilter();
+        // Multi-category filter as modal
+        const categoryFilterBtn = document.getElementById('categoryFilterBtn');
+        const categoryFilterModal = document.getElementById('categoryFilterModal');
+        const closeCategoryFilterModal = document.getElementById('closeCategoryFilterModal');
+        const applyCategoryFilter = document.getElementById('applyCategoryFilter');
+        const cancelCategoryFilter = document.getElementById('cancelCategoryFilter');
+        const selectAllCategories = document.getElementById('selectAllCategories');
+        const categoryCheckboxes = document.getElementById('categoryCheckboxes');
+
+        categoryFilterBtn.addEventListener('click', () => {
+            categoryFilterModal.style.display = 'block';
+        });
+        closeCategoryFilterModal.addEventListener('click', () => {
+            categoryFilterModal.style.display = 'none';
+        });
+        cancelCategoryFilter.addEventListener('click', () => {
+            categoryFilterModal.style.display = 'none';
+        });
+        // Select all logic
+        selectAllCategories.addEventListener('click', () => {
+            const checkboxes = categoryCheckboxes.querySelectorAll('input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => {
+                cb.checked = !allChecked;
+            });
+            selectAllCategories.textContent = allChecked ? 'Chọn tất cả' : 'Bỏ chọn tất cả';
+        });
+        // Áp dụng filter
+        applyCategoryFilter.addEventListener('click', () => {
+            this.applyMultiCategoryFilter();
+            categoryFilterModal.style.display = 'none';
+        });
+        // Đóng modal khi click ra ngoài
+        window.addEventListener('click', (e) => {
+            if (e.target === categoryFilterModal) categoryFilterModal.style.display = 'none';
+        });
 
         // Logout button
         const logoutBtn = document.getElementById('logoutBtn');
@@ -863,56 +897,7 @@ class ComponentManager {
         }
     }
 
-    setupMultiCategoryFilter() {
-        const categoryFilterBtn = document.getElementById('categoryFilterBtn');
-        const categoryFilterDropdown = document.getElementById('categoryFilterDropdown');
-        const selectAllCategories = document.getElementById('selectAllCategories');
-        const applyCategoryFilter = document.getElementById('applyCategoryFilter');
-        const clearCategoryFilter = document.getElementById('clearCategoryFilter');
-        const categoryCheckboxes = document.getElementById('categoryCheckboxes');
-
-        // Chỉ hiện dropdown khi bấm nút
-        categoryFilterBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            categoryFilterDropdown.classList.toggle('show');
-            categoryFilterBtn.classList.toggle('active');
-        });
-
-        // Ẩn dropdown khi bấm ra ngoài
-        document.addEventListener('mousedown', (e) => {
-            if (!categoryFilterBtn.contains(e.target) && !categoryFilterDropdown.contains(e.target)) {
-                categoryFilterDropdown.classList.remove('show');
-                categoryFilterBtn.classList.remove('active');
-            }
-        });
-
-        // Select all categories
-        selectAllCategories.addEventListener('click', () => {
-            const checkboxes = categoryCheckboxes.querySelectorAll('input[type="checkbox"]');
-            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-            checkboxes.forEach(cb => {
-                cb.checked = !allChecked;
-            });
-            selectAllCategories.textContent = allChecked ? 'Chọn tất cả' : 'Bỏ chọn tất cả';
-        });
-
-        // Apply filter
-        applyCategoryFilter.addEventListener('click', () => {
-            this.applyMultiCategoryFilter();
-            categoryFilterDropdown.classList.remove('show');
-            categoryFilterBtn.classList.remove('active');
-        });
-
-        // Clear filter
-        clearCategoryFilter.addEventListener('click', () => {
-            this.clearMultiCategoryFilter();
-            categoryFilterDropdown.classList.remove('show');
-            categoryFilterBtn.classList.remove('active');
-        });
-
-        // Populate categories
-        this.populateCategoryCheckboxes();
-    }
+    // Bỏ setupMultiCategoryFilter khỏi init
 
     populateCategoryCheckboxes() {
         const categoryCheckboxes = document.getElementById('categoryCheckboxes');
