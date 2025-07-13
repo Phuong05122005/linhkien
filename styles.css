@@ -2352,8 +2352,8 @@ body.modal-open {
 }
 
 input, select, textarea {
-  background: #fafdff !important;
-  color: #23272f !important;
+  background: #f7fafd !important;
+  color: #181818 !important;
   border: 1.5px solid #bfc9d9;
   border-radius: 8px;
   padding: 12px 14px;
@@ -2365,10 +2365,10 @@ input:focus, select:focus, textarea:focus {
   border-color: #4299e1;
   outline: none;
   background: #fff !important;
-  color: #23272f !important;
+  color: #181818 !important;
 }
 label {
-  color: #23272f !important;
+  color: #181818 !important;
   font-weight: 600;
   margin-bottom: 6px;
   display: block;
