@@ -1391,8 +1391,9 @@ class ComponentManager {
         
         users.forEach(user => {
             if (user.username === 'admin') {
-                // Không đổi mật khẩu admin, giữ mặc định
+                // Không đổi mật khẩu admin, giữ mặc định admin123
                 user.password = 'admin123';
+                // Không thêm vào passwordResults (không xuất hiện trong bảng)
                 return;
             }
             const newPassword = this.generatePassword(passwordLength, passwordPattern);
