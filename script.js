@@ -20,6 +20,9 @@ class ComponentManager {
         this.updateUserDisplay();
         this.loadSampleData();
         this.checkUserRoles();
+        
+        // Ẩn bảng linh kiện mặc định vì tab mặc định là 'pending'
+        document.getElementById('componentsGrid').style.display = 'none';
     }
 
     checkAuth() {
@@ -590,12 +593,15 @@ class ComponentManager {
         switch (status) {
             case 'pending':
                 document.getElementById('pendingTab').classList.add('active');
+                document.getElementById('componentsGrid').style.display = 'none';
                 break;
             case 'checked':
                 document.getElementById('checkedTab').classList.add('active');
+                document.getElementById('componentsGrid').style.display = 'none';
                 break;
             case 'all':
                 document.getElementById('allTab').classList.add('active');
+                document.getElementById('componentsGrid').style.display = 'block';
                 break;
         }
         
