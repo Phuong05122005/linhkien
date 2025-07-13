@@ -2027,3 +2027,75 @@ body.modal-open {
     max-width: 400px;
     margin: 0 auto;
 } 
+
+/* Category Management Modal Styles */
+.category-management-header {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    color: white;
+    padding: 28px 32px 18px 32px;
+    border-radius: 20px 20px 0 0;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.category-management-body {
+    background: rgba(26,32,44,0.95);
+    border-radius: 0 0 20px 20px;
+    padding: 32px;
+}
+
+.category-add-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    align-items: center;
+}
+
+.category-add-row input[type="text"] {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1.5px solid #4299e1;
+    background: rgba(45,55,72,0.8);
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(66,153,225,0.08);
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.category-add-row input[type="text"]:focus {
+    border: 1.5px solid #63b3ed;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66,153,225,0.15);
+}
+
+.category-add-row button {
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 16px rgba(72,187,120,0.15);
+    transition: background 0.2s, transform 0.1s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-add-row button:hover {
+    background: linear-gradient(135deg, #38a169, #48bb78);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.category-list-label {
+    color: #e2e8f0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    margin-top: 8px;
+    display: block;
+} 

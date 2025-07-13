@@ -436,25 +436,20 @@
     <!-- Modal quản lý chủ đề -->
     <div id="categoryManagementModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2>Quản lý Chủ đề</h2>
+            <div class="category-management-header">
+                Quản lý Chủ đề
                 <span class="close">&times;</span>
             </div>
-            <div class="modal-body">
-                <div class="category-management-controls">
-                    <div class="add-category-form">
-                        <input type="text" id="newCategoryName" placeholder="Nhập tên chủ đề mới" class="category-input">
-                        <button id="addCategoryBtn" class="btn btn-success">
-                            <i class="fas fa-plus"></i> Thêm Chủ đề
-                        </button>
-                    </div>
+            <div class="category-management-body">
+                <div class="category-add-row">
+                    <input type="text" id="newCategoryName" placeholder="Nhập tên chủ đề mới">
+                    <button id="addCategoryBtn">
+                        <i class="fas fa-plus"></i> Thêm Chủ đề
+                    </button>
                 </div>
-                
-                <div class="categories-list">
-                    <h3>Danh sách chủ đề hiện có:</h3>
-                    <div id="categoriesList" class="categories-container">
-                        <!-- Danh sách chủ đề sẽ được hiển thị ở đây -->
-                    </div>
+                <span class="category-list-label">Danh sách chủ đề hiện có:</span>
+                <div id="categoriesList" class="categories-container">
+                    <!-- Danh sách chủ đề sẽ được hiển thị ở đây -->
                 </div>
             </div>
         </div>
