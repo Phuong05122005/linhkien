@@ -126,46 +126,106 @@
 
     <!-- Modal thêm/sửa linh kiện -->
     <div id="componentModal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content component-modal">
             <div class="modal-header">
                 <h2 id="modalTitle">Thêm Linh kiện Mới</h2>
                 <span class="close">&times;</span>
             </div>
             <form id="componentForm">
-                <div class="form-group">
-                    <label for="componentName">Tên linh kiện:</label>
-                    <input type="text" id="componentName" required>
-                </div>
-                <div class="form-group">
-                    <label for="componentCategory">Chủ đề:</label>
-                    <select id="componentCategory" required>
-                        <option value="">Chọn chủ đề</option>
-                        <option value="Điện tử">Điện tử</option>
-                        <option value="Cơ khí">Cơ khí</option>
-                        <option value="Máy tính">Máy tính</option>
-                        <option value="Điện thoại">Điện thoại</option>
-                        <option value="Khác">Khác</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="componentQuantity">Số lượng:</label>
-                    <input type="number" id="componentQuantity" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label for="componentPreparer">Người soạn:</label>
-                    <input type="text" id="componentPreparer" required>
-                </div>
-                <div class="form-group">
-                    <label for="componentInspector">Người kiểm tra:</label>
-                    <input type="text" id="componentInspector" required>
-                </div>
-                <div class="form-group">
-                    <label for="componentDescription">Mô tả:</label>
-                    <textarea id="componentDescription" rows="3"></textarea>
+                <div class="form-layout">
+                    <div class="form-left">
+                        <div class="form-group">
+                            <label for="componentName">Tên linh kiện:</label>
+                            <input type="text" id="componentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="componentCategory">Chủ đề:</label>
+                            <select id="componentCategory" required>
+                                <option value="">Chọn chủ đề</option>
+                                <option value="Điện tử">Điện tử</option>
+                                <option value="Cơ khí">Cơ khí</option>
+                                <option value="Máy tính">Máy tính</option>
+                                <option value="Điện thoại">Điện thoại</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="componentQuantity">Số lượng:</label>
+                                <input type="number" id="componentQuantity" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="componentPriority">Mức độ ưu tiên:</label>
+                                <select id="componentPriority">
+                                    <option value="Thấp">Thấp</option>
+                                    <option value="Trung bình" selected>Trung bình</option>
+                                    <option value="Cao">Cao</option>
+                                    <option value="Khẩn cấp">Khẩn cấp</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="componentPreparer">Người soạn:</label>
+                                <input type="text" id="componentPreparer" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="componentInspector">Người kiểm tra:</label>
+                                <input type="text" id="componentInspector" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="componentDescription">Mô tả:</label>
+                            <textarea id="componentDescription" rows="3" placeholder="Mô tả chi tiết về linh kiện..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="componentLocation">Vị trí lưu trữ:</label>
+                            <input type="text" id="componentLocation" placeholder="Ví dụ: Kệ A, Ngăn 3">
+                        </div>
+                    </div>
+                    <div class="form-right">
+                        <div class="image-upload-section">
+                            <label for="componentImage">Hình ảnh linh kiện:</label>
+                            <div class="image-upload-area" id="imageUploadArea">
+                                <div class="upload-placeholder" id="uploadPlaceholder">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p>Nhấp để chọn hình ảnh</p>
+                                    <small>Hoặc kéo thả file vào đây</small>
+                                </div>
+                                <img id="imagePreview" class="image-preview" style="display: none;">
+                                <input type="file" id="componentImage" accept="image/*" style="display: none;">
+                            </div>
+                            <div class="image-controls" id="imageControls" style="display: none;">
+                                <button type="button" id="changeImageBtn" class="btn btn-sm btn-secondary">
+                                    <i class="fas fa-edit"></i> Đổi ảnh
+                                </button>
+                                <button type="button" id="removeImageBtn" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i> Xóa ảnh
+                                </button>
+                            </div>
+                        </div>
+                        <div class="component-info-preview">
+                            <h4>Thông tin nhanh:</h4>
+                            <div class="info-item">
+                                <span class="info-label">Trạng thái:</span>
+                                <span class="info-value status-pending">Chờ kiểm tra</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Ngày tạo:</span>
+                                <span class="info-value" id="creationDate">Hôm nay</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Mã linh kiện:</span>
+                                <span class="info-value" id="componentCode">Tự động tạo</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" id="cancelBtn">Hủy</button>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Lưu Linh kiện
+                    </button>
                 </div>
             </form>
         </div>

@@ -52,6 +52,9 @@ class ComponentManager {
         form.addEventListener('submit', (e) => this.handleFormSubmit(e));
         quickForm.addEventListener('submit', (e) => this.handleQuickFormSubmit(e));
 
+        // Image upload functionality
+        this.setupImageUpload();
+
         // User setup modal
         const userSetupCard = document.getElementById('userSetupCard');
         const userSetupModal = document.getElementById('userSetupModal');
@@ -200,7 +203,8 @@ class ComponentManager {
             // Add mode
             this.currentEditId = null;
             modalTitle.textContent = 'Thêm Linh kiện Mới';
-            form.reset();
+            this.resetForm();
+            this.updateComponentInfo();
         }
 
         modal.style.display = 'block';
@@ -211,6 +215,127 @@ class ComponentManager {
         const modal = document.getElementById('componentModal');
         modal.style.display = 'none';
         this.currentEditId = null;
+        this.resetImageUpload();
+    }
+
+    setupImageUpload() {
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imageInput = document.getElementById('componentImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const imageControls = document.getElementById('imageControls');
+        const changeImageBtn = document.getElementById('changeImageBtn');
+        const removeImageBtn = document.getElementById('removeImageBtn');
+
+        // Click to upload
+        imageUploadArea.addEventListener('click', () => {
+            if (!imageInput.files.length) {
+                imageInput.click();
+            }
+        });
+
+        // File input change
+        imageInput.addEventListener('change', (e) => {
+            this.handleImageUpload(e.target.files[0]);
+        });
+
+        // Drag and drop
+        imageUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.add('dragover');
+        });
+
+        imageUploadArea.addEventListener('dragleave', () => {
+            imageUploadArea.classList.remove('dragover');
+        });
+
+        imageUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            imageUploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                this.handleImageUpload(file);
+            }
+        });
+
+        // Image controls
+        changeImageBtn.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        removeImageBtn.addEventListener('click', () => {
+            this.removeImage();
+        });
+    }
+
+    handleImageUpload(file) {
+        if (!file || !file.type.startsWith('image/')) {
+            this.showMessage('Vui lòng chọn file hình ảnh hợp lệ!', 'error');
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) { // 5MB limit
+            this.showMessage('Kích thước file không được vượt quá 5MB!', 'error');
+            return;
+        }
+
+        const reader = new FileReader();
+        const imageUploadArea = document.getElementById('imageUploadArea');
+        const imagePreview = document.getElementById('imagePreview');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const imageControls = document.getElementById('imageControls');
+
+        imageUploadArea.classList.add('loading');
+
+        reader.onload = (e) => {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+            uploadPlaceholder.style.display = 'none';
+            imageControls.style.display = 'flex';
+            imageUploadArea.classList.remove('loading');
+            
+            // Store image data
+            this.currentImageData = e.target.result;
+        };
+
+        reader.onerror = () => {
+            imageUploadArea.classList.remove('loading');
+            this.showMessage('Không thể đọc file hình ảnh!', 'error');
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    removeImage() {
+        const imagePreview = document.getElementById('imagePreview');
+        const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+        const imageControls = document.getElementById('imageControls');
+        const imageInput = document.getElementById('componentImage');
+
+        imagePreview.style.display = 'none';
+        uploadPlaceholder.style.display = 'block';
+        imageControls.style.display = 'none';
+        imageInput.value = '';
+        this.currentImageData = null;
+    }
+
+    resetImageUpload() {
+        this.removeImage();
+    }
+
+    resetForm() {
+        const form = document.getElementById('componentForm');
+        form.reset();
+        this.resetImageUpload();
+        this.currentImageData = null;
+    }
+
+    updateComponentInfo() {
+        const creationDate = document.getElementById('creationDate');
+        const componentCode = document.getElementById('componentCode');
+        
+        creationDate.textContent = new Date().toLocaleDateString('vi-VN');
+        componentCode.textContent = 'LK' + Date.now().toString().slice(-6);
     }
 
     openQuickAddModal() {
@@ -270,9 +395,33 @@ class ComponentManager {
         document.getElementById('componentName').value = component.name;
         document.getElementById('componentCategory').value = component.category;
         document.getElementById('componentQuantity').value = component.quantity;
+        document.getElementById('componentPriority').value = component.priority || 'Trung bình';
         document.getElementById('componentPreparer').value = component.preparer;
         document.getElementById('componentInspector').value = component.inspector;
         document.getElementById('componentDescription').value = component.description || '';
+        document.getElementById('componentLocation').value = component.location || '';
+
+        // Load image if exists
+        if (component.image) {
+            this.currentImageData = component.image;
+            const imagePreview = document.getElementById('imagePreview');
+            const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+            const imageControls = document.getElementById('imageControls');
+            
+            imagePreview.src = component.image;
+            imagePreview.style.display = 'block';
+            uploadPlaceholder.style.display = 'none';
+            imageControls.style.display = 'flex';
+        } else {
+            this.resetImageUpload();
+        }
+
+        // Update component info
+        const creationDate = document.getElementById('creationDate');
+        const componentCode = document.getElementById('componentCode');
+        
+        creationDate.textContent = component.createdAt ? new Date(component.createdAt).toLocaleDateString('vi-VN') : 'Hôm nay';
+        componentCode.textContent = component.id || 'LK' + Date.now().toString().slice(-6);
     }
 
     handleFormSubmit(e) {
@@ -282,9 +431,12 @@ class ComponentManager {
             name: document.getElementById('componentName').value.trim(),
             category: document.getElementById('componentCategory').value,
             quantity: parseInt(document.getElementById('componentQuantity').value),
+            priority: document.getElementById('componentPriority').value,
             preparer: document.getElementById('componentPreparer').value.trim(),
             inspector: document.getElementById('componentInspector').value.trim(),
-            description: document.getElementById('componentDescription').value.trim()
+            description: document.getElementById('componentDescription').value.trim(),
+            location: document.getElementById('componentLocation').value.trim(),
+            image: this.currentImageData || null
         };
 
         if (this.currentEditId) {
@@ -473,14 +625,30 @@ class ComponentManager {
         const canCheck = userRoles.includes('inspector') || userRoles.includes('admin');
         const currentUser = localStorage.getItem('currentUser');
 
+        const priority = component.priority || 'Trung bình';
+        const priorityClass = this.getPriorityClass(priority);
+
         return `
             <div class="component-card">
+                ${component.image ? `
+                <div class="component-image">
+                    <img src="${component.image}" alt="${this.escapeHtml(component.name)}" onclick="app.showImageModal('${component.image}', '${this.escapeHtml(component.name)}')">
+                </div>
+                ` : `
+                <div class="component-image no-image">
+                    <i class="fas fa-image"></i>
+                </div>
+                `}
+                
                 <div class="component-header">
                     <div>
                         <div class="component-name">${this.escapeHtml(component.name)}</div>
                         <div class="component-category">${this.escapeHtml(component.category)}</div>
                     </div>
-                    <div class="status-badge ${statusClass}">${statusText}</div>
+                    <div class="header-badges">
+                        <div class="status-badge ${statusClass}">${statusText}</div>
+                        <div class="priority-badge ${priorityClass}">${priority}</div>
+                    </div>
                 </div>
                 
                 <div class="component-info">
@@ -498,6 +666,12 @@ class ComponentManager {
                         <span class="info-label">Người kiểm tra:</span>
                         <span class="info-value">${this.escapeHtml(component.inspector)}</span>
                     </div>
+                    ${component.location ? `
+                    <div class="info-row">
+                        <span class="info-label">Vị trí:</span>
+                        <span class="info-value">${this.escapeHtml(component.location)}</span>
+                    </div>
+                    ` : ''}
                     <div class="info-row">
                         <span class="info-label">Ngày tạo:</span>
                         <span class="info-value">${createdDate}</span>
@@ -544,6 +718,47 @@ class ComponentManager {
         if (component) {
             this.openModal(component);
         }
+    }
+
+    getPriorityClass(priority) {
+        switch (priority) {
+            case 'Thấp': return 'low';
+            case 'Trung bình': return 'medium';
+            case 'Cao': return 'high';
+            case 'Khẩn cấp': return 'urgent';
+            default: return 'medium';
+        }
+    }
+
+    showImageModal(imageSrc, imageAlt) {
+        // Tạo modal hiển thị hình ảnh lớn
+        const modal = document.createElement('div');
+        modal.className = 'modal image-modal';
+        modal.innerHTML = `
+            <div class="modal-content image-modal-content">
+                <div class="modal-header">
+                    <h3>${imageAlt}</h3>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <img src="${imageSrc}" alt="${imageAlt}" class="full-size-image">
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        modal.style.display = 'block';
+
+        // Xử lý đóng modal
+        const closeBtn = modal.querySelector('.close');
+        const closeModal = () => {
+            document.body.removeChild(modal);
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
     }
 
     updateStats() {
@@ -1249,7 +1464,16 @@ class ComponentManager {
         // Create new message
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}`;
-        messageDiv.textContent = message;
+        
+        let icon = 'fa-info-circle';
+        if (type === 'success') icon = 'fa-check-circle';
+        else if (type === 'error') icon = 'fa-exclamation-circle';
+        else if (type === 'warning') icon = 'fa-exclamation-triangle';
+        
+        messageDiv.innerHTML = `
+            <i class="fas ${icon}"></i>
+            ${message}
+        `;
 
         // Insert after header
         const header = document.querySelector('.header');

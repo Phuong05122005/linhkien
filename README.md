@@ -12,7 +12,10 @@ Một ứng dụng web chuyên nghiệp để quản lý và sắp xếp linh ki
 
 ### 📦 Quản lý Linh kiện
 - **Thêm, sửa, xóa** linh kiện với quyền hạn theo vai trò
+- **Upload hình ảnh** linh kiện với drag & drop và preview
 - **Phân loại** theo chủ đề (Điện tử, Cơ khí, Máy tính, Điện thoại, Khác)
+- **Mức độ ưu tiên** (Thấp, Trung bình, Cao, Khẩn cấp) với màu sắc phân biệt
+- **Vị trí lưu trữ** để ghi chú nơi cất giữ linh kiện
 - **Tìm kiếm và lọc** nhanh chóng
 - **Thống kê** chi tiết về linh kiện và nhân viên
 - **Hệ thống kiểm tra** linh kiện với trạng thái chờ/đã kiểm tra
@@ -49,10 +52,13 @@ Một ứng dụng web chuyên nghiệp để quản lý và sắp xếp linh ki
 
 Mỗi linh kiện bao gồm:
 - **Tên linh kiện** - tên gọi chính xác
+- **Hình ảnh** - ảnh minh họa linh kiện (tùy chọn)
 - **Chủ đề** - phân loại theo loại
 - **Số lượng** - số lượng hiện có
+- **Mức độ ưu tiên** - Thấp, Trung bình, Cao, Khẩn cấp
 - **Người soạn** - người chuẩn bị linh kiện
 - **Người kiểm tra** - người kiểm tra chất lượng
+- **Vị trí lưu trữ** - nơi cất giữ linh kiện (tùy chọn)
 - **Mô tả** - thông tin chi tiết (tùy chọn)
 - **Ngày tạo** - thời điểm thêm vào hệ thống
 - **Ngày cập nhật** - thời điểm chỉnh sửa gần nhất
@@ -78,9 +84,12 @@ Mỗi linh kiện bao gồm:
    - Tên linh kiện (bắt buộc)
    - Chọn chủ đề (bắt buộc)
    - Số lượng (bắt buộc)
+   - Mức độ ưu tiên (mặc định: Trung bình)
    - Người soạn (bắt buộc)
    - Người kiểm tra (bắt buộc)
+   - Vị trí lưu trữ (tùy chọn)
    - Mô tả (tùy chọn)
+   - **Upload hình ảnh**: Nhấp vào vùng upload hoặc kéo thả file
 3. Nhấn **"Lưu"** để thêm linh kiện
 
 ### 4. Thêm nhanh linh kiện (cho người chuẩn bị)
