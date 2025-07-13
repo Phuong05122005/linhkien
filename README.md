@@ -58,8 +58,8 @@ Mỗi linh kiện bao gồm:
 ## 🛠️ Cách sử dụng
 
 ### 1. Khởi chạy ứng dụng
-- **Mở file `login.html`** trong trình duyệt web (trang chính)
-- Hoặc mở file `app.html` (sẽ tự động chuyển hướng đến trang đăng nhập)
+- **Mở file `login.html`** trong trình duyệt web (trang đăng nhập chính)
+- Hoặc mở file `app.html` (sẽ tự động chuyển hướng đến trang đăng nhập nếu chưa đăng nhập)
 - Hệ thống sẽ bắt đầu với dữ liệu trống, sẵn sàng cho bạn thêm linh kiện thực tế
 
 ### 2. Đăng nhập hệ thống
@@ -193,7 +193,7 @@ Nếu có vấn đề hoặc cần hỗ trợ, vui lòng:
 
 1. **Mở File Explorer** (Windows Explorer)
 2. **Điều hướng đến thư mục** chứa các file đã tạo:
-   - `login.html` (trang đăng nhập)
+   - `login.html` (trang đăng nhập chính)
    - `app.html` (trang quản lý chính)
    - `config.js` (cấu hình hệ thống)
    - `styles.css` 

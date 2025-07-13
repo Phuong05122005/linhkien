@@ -2,6 +2,9 @@
 class ComponentManager {
     constructor() {
         this.components = JSON.parse(localStorage.getItem('components')) || [];
+        this.categories = JSON.parse(localStorage.getItem('categories')) || [
+            'Điện tử', 'Cơ khí', 'Máy tính', 'Điện thoại', 'Khác'
+        ];
         this.currentEditId = null;
         this.currentDeleteId = null;
         this.currentStatusTab = 'pending'; // Tab hiện tại: pending, checked, all
@@ -11,6 +14,7 @@ class ComponentManager {
     init() {
         this.checkAuth();
         this.setupEventListeners();
+        this.updateCategoryDropdowns(); // Cập nhật dropdown chủ đề
         this.renderComponents();
         this.updateStats();
         this.updateUserDisplay();
@@ -94,12 +98,29 @@ class ComponentManager {
         userForm.addEventListener('submit', (e) => this.handleUserFormSubmit(e));
         cancelUserFormBtn.addEventListener('click', () => this.closeUserFormModal());
 
+        // Category management
+        const manageCategoriesBtn = document.getElementById('manageCategoriesBtn');
+        const categoryManagementModal = document.getElementById('categoryManagementModal');
+        const addCategoryBtn = document.getElementById('addCategoryBtn');
+        const newCategoryName = document.getElementById('newCategoryName');
+
+        manageCategoriesBtn.addEventListener('click', () => this.openCategoryManagementModal());
+        addCategoryBtn.addEventListener('click', () => this.addCategory());
+        newCategoryName.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                this.addCategory();
+            }
+        });
+
         // Close modals
         const userManagementCloseBtn = userManagementModal.querySelector('.close');
         const userFormCloseBtn = userFormModal.querySelector('.close');
+        const categoryManagementCloseBtn = categoryManagementModal.querySelector('.close');
 
         userManagementCloseBtn.addEventListener('click', () => this.closeUserManagementModal());
         userFormCloseBtn.addEventListener('click', () => this.closeUserFormModal());
+        categoryManagementCloseBtn.addEventListener('click', () => this.closeCategoryManagementModal());
 
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
@@ -108,6 +129,7 @@ class ComponentManager {
             if (e.target === userSetupModal) this.closeUserSetupModal();
             if (e.target === userManagementModal) this.closeUserManagementModal();
             if (e.target === userFormModal) this.closeUserFormModal();
+            if (e.target === categoryManagementModal) this.closeCategoryManagementModal();
             if (e.target === deleteModal) this.closeDeleteModal();
         });
 
@@ -503,14 +525,14 @@ class ComponentManager {
 
     updateStats() {
         const totalComponents = this.components.length;
-        const categories = new Set(this.components.map(c => c.category));
+        const totalCategories = this.categories.length;
         const staff = new Set([
             ...this.components.map(c => c.preparer),
             ...this.components.map(c => c.inspector)
         ]);
 
         document.getElementById('totalComponents').textContent = totalComponents;
-        document.getElementById('totalCategories').textContent = categories.size;
+        document.getElementById('totalCategories').textContent = totalCategories;
         document.getElementById('totalStaff').textContent = staff.size;
         
         // Cập nhật số lượng theo trạng thái
@@ -572,12 +594,20 @@ class ComponentManager {
     checkUserRoles() {
         const userRoles = JSON.parse(localStorage.getItem('userRoles') || '[]');
         const manageUsersBtn = document.getElementById('manageUsersBtn');
+        const manageCategoriesBtn = document.getElementById('manageCategoriesBtn');
         const addComponentBtn = document.getElementById('addComponentBtn');
         const quickAddBtn = document.getElementById('quickAddBtn');
         
         // Hiển thị nút quản lý tài khoản cho admin
         if (userRoles.includes('admin')) {
             manageUsersBtn.style.display = 'inline-flex';
+        }
+        
+        // Hiển thị nút quản lý chủ đề cho người soạn linh kiện và admin
+        if (userRoles.includes('preparer') || userRoles.includes('admin')) {
+            manageCategoriesBtn.style.display = 'inline-flex';
+        } else {
+            manageCategoriesBtn.style.display = 'none';
         }
         
         // Hiển thị nút thêm linh kiện cho người có quyền soạn
@@ -614,6 +644,7 @@ class ComponentManager {
         // Ẩn/hiện các nút theo quyền
         const addComponentBtn = document.getElementById('addComponentBtn');
         const quickAddBtn = document.getElementById('quickAddBtn');
+        const manageCategoriesBtn = document.getElementById('manageCategoriesBtn');
         const editButtons = document.querySelectorAll('.btn-edit');
         const deleteButtons = document.querySelectorAll('.btn-delete');
         
@@ -623,6 +654,13 @@ class ComponentManager {
         } else {
             addComponentBtn.style.display = 'none';
             quickAddBtn.style.display = 'none';
+        }
+        
+        // Hiển thị nút quản lý chủ đề cho người soạn và admin
+        if (userRoles.includes('preparer') || userRoles.includes('admin')) {
+            manageCategoriesBtn.style.display = 'inline-flex';
+        } else {
+            manageCategoriesBtn.style.display = 'none';
         }
         
         editButtons.forEach(btn => {
@@ -669,6 +707,119 @@ class ComponentManager {
     closeUserFormModal() {
         const modal = document.getElementById('userFormModal');
         modal.style.display = 'none';
+        document.getElementById('userForm').reset();
+    }
+
+    // Category management methods
+    openCategoryManagementModal() {
+        const modal = document.getElementById('categoryManagementModal');
+        this.renderCategories();
+        modal.style.display = 'block';
+        document.getElementById('newCategoryName').focus();
+    }
+
+    closeCategoryManagementModal() {
+        const modal = document.getElementById('categoryManagementModal');
+        modal.style.display = 'none';
+        document.getElementById('newCategoryName').value = '';
+    }
+
+    addCategory() {
+        const newCategoryName = document.getElementById('newCategoryName').value.trim();
+        
+        if (!newCategoryName) {
+            this.showMessage('Vui lòng nhập tên chủ đề', 'error');
+            return;
+        }
+
+        if (this.categories.includes(newCategoryName)) {
+            this.showMessage('Chủ đề này đã tồn tại', 'error');
+            return;
+        }
+
+        this.categories.push(newCategoryName);
+        this.saveCategories();
+        this.updateCategoryDropdowns();
+        this.renderCategories();
+        document.getElementById('newCategoryName').value = '';
+        this.showMessage(`Đã thêm chủ đề "${newCategoryName}"`, 'success');
+    }
+
+    deleteCategory(categoryName) {
+        // Kiểm tra xem có linh kiện nào đang sử dụng chủ đề này không
+        const componentsUsingCategory = this.components.filter(comp => comp.category === categoryName);
+        
+        if (componentsUsingCategory.length > 0) {
+            this.showMessage(`Không thể xóa chủ đề "${categoryName}" vì có ${componentsUsingCategory.length} linh kiện đang sử dụng`, 'error');
+            return;
+        }
+
+        if (confirm(`Bạn có chắc chắn muốn xóa chủ đề "${categoryName}" không?`)) {
+            this.categories = this.categories.filter(cat => cat !== categoryName);
+            this.saveCategories();
+            this.updateCategoryDropdowns();
+            this.renderCategories();
+            this.showMessage(`Đã xóa chủ đề "${categoryName}"`, 'success');
+        }
+    }
+
+    renderCategories() {
+        const categoriesList = document.getElementById('categoriesList');
+        categoriesList.innerHTML = '';
+
+        this.categories.forEach(category => {
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item';
+            
+            // Đếm số linh kiện trong chủ đề này
+            const componentCount = this.components.filter(comp => comp.category === category).length;
+            
+            categoryItem.innerHTML = `
+                <div class="category-name">
+                    ${this.escapeHtml(category)}
+                    <span class="category-count">${componentCount} linh kiện</span>
+                </div>
+                <div class="category-actions">
+                    <button class="btn-delete-category" onclick="app.deleteCategory('${this.escapeHtml(category)}')">
+                        <i class="fas fa-trash"></i> Xóa
+                    </button>
+                </div>
+            `;
+            
+            categoriesList.appendChild(categoryItem);
+        });
+    }
+
+    updateCategoryDropdowns() {
+        // Cập nhật dropdown trong modal thêm linh kiện
+        const componentCategory = document.getElementById('componentCategory');
+        const quickComponentCategory = document.getElementById('quickComponentCategory');
+        const categoryFilter = document.getElementById('categoryFilter');
+
+        const updateDropdown = (dropdown) => {
+            const currentValue = dropdown.value;
+            dropdown.innerHTML = '<option value="">Chọn chủ đề</option>';
+            
+            this.categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                dropdown.appendChild(option);
+            });
+            
+            // Giữ lại giá trị hiện tại nếu vẫn tồn tại
+            if (this.categories.includes(currentValue)) {
+                dropdown.value = currentValue;
+            }
+        };
+
+        updateDropdown(componentCategory);
+        updateDropdown(quickComponentCategory);
+        updateDropdown(categoryFilter);
+    }
+
+    saveCategories() {
+        localStorage.setItem('categories', JSON.stringify(this.categories));
     }
 
     fillUserForm(user) {

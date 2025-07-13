@@ -61,6 +61,9 @@
                 <button id="quickAddBtn" class="btn btn-success">
                     <i class="fas fa-bolt"></i> Thêm Nhanh
                 </button>
+                <button id="manageCategoriesBtn" class="btn btn-warning">
+                    <i class="fas fa-tags"></i> Quản lý Chủ đề
+                </button>
                 <button id="manageUsersBtn" class="btn btn-info" style="display: none;">
                     <i class="fas fa-users-cog"></i> Quản lý Tài khoản
                 </button>
@@ -313,6 +316,33 @@
                     <button type="submit" class="btn btn-primary">Lưu</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Modal quản lý chủ đề -->
+    <div id="categoryManagementModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Quản lý Chủ đề</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="category-management-controls">
+                    <div class="add-category-form">
+                        <input type="text" id="newCategoryName" placeholder="Nhập tên chủ đề mới" class="category-input">
+                        <button id="addCategoryBtn" class="btn btn-success">
+                            <i class="fas fa-plus"></i> Thêm Chủ đề
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="categories-list">
+                    <h3>Danh sách chủ đề hiện có:</h3>
+                    <div id="categoriesList" class="categories-container">
+                        <!-- Danh sách chủ đề sẽ được hiển thị ở đây -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
