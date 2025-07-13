@@ -4,11 +4,11 @@
     box-sizing: border-box;
 }
 
-body {
+body, .container {
+    background: #f7fafd !important;
+    color: #222 !important;
     font-family: 'Inter', 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f1419 0%, #1a1f2e 50%, #2d3748 100%);
     min-height: 100vh;
-    color: #e2e8f0;
     line-height: 1.6;
 }
 
@@ -1647,8 +1647,8 @@ body.modal-open {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(255,255,255,0.05);
-    border-top: 1px solid rgba(66,153,225,0.08);
+    background: #f5f8fa;
+    border-top: 1px solid #e3e8ee;
     padding: 20px 32px;
     display: flex;
     justify-content: flex-end;
@@ -1930,7 +1930,7 @@ body.modal-open {
 }
 
 .modal-content {
-    background: rgba(26, 32, 44, 0.95);
+    background: #fff !important;
     backdrop-filter: blur(20px);
     margin: 2% auto;
     padding: 0;
@@ -1944,8 +1944,8 @@ body.modal-open {
 }
 
 .modal-header {
-    background: linear-gradient(135deg, #4299e1, #3182ce);
-    color: white;
+    background: #f3f6fa !important;
+    color: #222 !important;
     padding: 24px 32px;
     border-radius: 20px 20px 0 0;
     display: flex;
@@ -1999,8 +1999,8 @@ body.modal-open {
     padding: 14px 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    background: rgba(45, 55, 72, 0.8);
-    color: #e2e8f0;
+    background: #f7fafd !important;
+    color: #222 !important;
     font-size: 15px;
     transition: all 0.3s ease;
 }
@@ -2011,7 +2011,8 @@ body.modal-open {
     outline: none;
     border-color: #4299e1;
     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
-    background: rgba(45, 55, 72, 0.95);
+    background: #fff !important;
+    color: #222 !important;
 }
 
 .form-group input::placeholder,
@@ -2177,7 +2178,7 @@ body.modal-open {
 }
 
 .users-table-container {
-    background: rgba(45,55,72,0.7);
+    background: #f7fafd !important;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(66,153,225,0.05);
     padding: 0;
@@ -2194,7 +2195,7 @@ body.modal-open {
 }
 
 .users-table thead tr {
-    background: rgba(66,153,225,0.15);
+    background: #f3f6fa !important;
 }
 
 .users-table th, .users-table td {
@@ -2312,14 +2313,14 @@ body.modal-open {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  background: #fff;
+  background: #fff !important;
   border-radius: 12px;
   overflow: hidden;
   font-size: 1rem;
 }
 .users-table th, .password-table th {
-  background: #eaf1fb;
-  color: #2d3748;
+  background: #f3f6fa !important;
+  color: #222 !important;
   font-weight: 700;
   padding: 14px 10px;
   border-bottom: 1px solid #e3e8ee;
@@ -2327,29 +2328,30 @@ body.modal-open {
 .users-table td, .password-table td {
   padding: 12px 10px;
   border-bottom: 1px solid #f1f4f8;
-  color: #2d3748;
+  color: #222 !important;
 }
 .users-table tr:last-child td, .password-table tr:last-child td {
   border-bottom: none;
 }
 
 input, select, textarea {
-  background: #f1f4f8;
+  background: #f7fafd !important;
+  color: #222 !important;
   border: 1.5px solid #bfc9d9;
   border-radius: 8px;
   padding: 12px 14px;
   font-size: 1rem;
-  color: #2d3748;
   margin-bottom: 10px;
   transition: border 0.2s;
 }
 input:focus, select:focus, textarea:focus {
   border-color: #4299e1;
   outline: none;
-  background: #fff;
+  background: #fff !important;
+  color: #222 !important;
 }
 label {
-  color: #2d3748;
+  color: #222 !important;
   font-weight: 600;
   margin-bottom: 6px;
   display: block;
@@ -2386,15 +2388,20 @@ label {
 
 /* Hiệu ứng cho nút Lưu/Hủy trong modal/footer */
 .component-modal-footer .btn, .modal-footer .btn, .form-actions .btn {
-  transition: all 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s;
+  background: linear-gradient(90deg, #4299e1 0%, #48bb78 100%);
+  color: #fff !important;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(66,153,225,0.08);
+  transition: all 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s;
   will-change: transform, box-shadow;
 }
 .component-modal-footer .btn:hover, .modal-footer .btn:hover, .form-actions .btn:hover {
   transform: translateY(-2px) scale(1.04);
   box-shadow: 0 6px 24px rgba(66,153,225,0.18);
   filter: brightness(1.08);
-  opacity: 0.95;
+  opacity: 0.97;
 }
 .component-modal-footer .btn:active, .modal-footer .btn:active, .form-actions .btn:active {
   transform: scale(0.98);
@@ -2414,7 +2421,6 @@ label {
 .form-layout::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb, .users-table-container::-webkit-scrollbar-thumb, .categories-container::-webkit-scrollbar-thumb, .components-grid::-webkit-scrollbar-thumb, .merged-components-section::-webkit-scrollbar-thumb, .password-table-container::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, #4299e1 40%, #90cdf4 100%);
   border-radius: 8px;
-  min-height: 40px;
 }
 .form-layout::-webkit-scrollbar-thumb:hover, .modal-body::-webkit-scrollbar-thumb:hover, .users-table-container::-webkit-scrollbar-thumb:hover, .categories-container::-webkit-scrollbar-thumb:hover, .components-grid::-webkit-scrollbar-thumb:hover, .merged-components-section::-webkit-scrollbar-thumb:hover, .password-table-container::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #3182ce 0%, #63b3ed 100%);
