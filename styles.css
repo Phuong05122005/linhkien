@@ -869,53 +869,339 @@ body {
     box-shadow: none;
 }
 
-/* Responsive */
+/* Responsive Design Improvements */
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
+        padding: 10px;
+        max-width: 100%;
+    }
+    
+    .header {
+        margin-bottom: 20px;
     }
     
     .header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        margin-bottom: 8px;
     }
     
+    .header p {
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .user-info {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .btn-logout {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Controls section */
     .controls {
         flex-direction: column;
         align-items: stretch;
+        gap: 15px;
+        margin-bottom: 20px;
     }
     
     .search-section {
         max-width: none;
-    }
-
-    .status-tabs {
         flex-direction: column;
-        padding: 0 10px;
+        gap: 10px;
     }
-
+    
+    .search-input, .filter-select {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .action-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+        width: 100%;
+    }
+    
+    .action-buttons .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 15px;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+    
+    /* Status tabs */
+    .status-tabs {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+    
     .status-tab {
+        flex: 1;
+        min-width: 100px;
+        padding: 12px 8px;
+        font-size: 0.85rem;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .status-count {
+        margin-left: 5px;
+        padding: 2px 6px;
+        font-size: 0.75rem;
+    }
+    
+    /* Stats section */
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .stat-card {
+        padding: 15px;
+        text-align: center;
+    }
+    
+    .stat-card i {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+    
+    .stat-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+    }
+    
+    .stat-card p {
+        font-size: 0.8rem;
+    }
+    
+    /* Components grid */
+    .components-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    /* Component cards */
+    .component-card {
+        padding: 15px;
+        margin-bottom: 0;
+    }
+    
+    .component-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+    
+    .component-name {
+        font-size: 1.1rem;
+        line-height: 1.2;
+    }
+    
+    .component-category {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+    }
+    
+    .header-badges {
+        flex-direction: row;
+        gap: 8px;
+        align-self: flex-end;
+    }
+    
+    .status-badge, .priority-badge {
+        font-size: 0.7rem;
+        padding: 3px 8px;
+    }
+    
+    .component-image {
+        height: 100px;
+        margin-bottom: 12px;
+    }
+    
+    .component-info {
+        margin-bottom: 12px;
+    }
+    
+    .info-row {
+        padding: 6px 0;
+        font-size: 0.85rem;
+    }
+    
+    .info-label {
+        font-size: 0.8rem;
+    }
+    
+    .info-value {
+        font-size: 0.8rem;
+    }
+    
+    .quantity-badge {
+        padding: 3px 6px;
+        font-size: 0.75rem;
+        min-width: 25px;
+    }
+    
+    .component-description {
+        padding: 10px;
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+    
+    .component-actions {
+        flex-direction: row;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .component-actions .btn {
+        flex: 1;
+        min-width: 70px;
+        padding: 8px 10px;
+        font-size: 0.8rem;
         justify-content: center;
     }
     
-    .components-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .stats {
-        grid-template-columns: 1fr;
-    }
-    
+    /* Modal improvements */
     .modal-content {
         width: 95%;
-        margin: 10% auto;
+        margin: 5% auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .modal-header {
+        padding: 15px 20px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .close {
+        font-size: 1.5rem;
+        padding: 5px;
+    }
+    
+    /* Form improvements */
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px 15px;
+        font-size: 16px; /* Prevent zoom on iOS */
+        border-radius: 8px;
+    }
+    
+    .form-group textarea {
+        min-height: 80px;
+        resize: vertical;
     }
     
     .form-actions {
         flex-direction: column;
+        gap: 10px;
+        padding: 20px;
     }
     
-    .component-actions {
-        flex-direction: column;
+    .form-actions .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 15px;
+        font-size: 1rem;
+    }
+    
+    /* Component modal specific */
+    .component-modal {
+        width: 98% !important;
+        margin: 2% auto !important;
+    }
+    
+    .form-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .image-upload-area {
+        height: 120px;
+    }
+    
+    .upload-placeholder i {
+        font-size: 2rem;
+    }
+    
+    .upload-placeholder p {
+        font-size: 0.9rem;
+    }
+    
+    .image-controls {
+        flex-direction: row;
+        gap: 8px;
+    }
+    
+    .component-info-preview {
+        padding: 15px;
+    }
+    
+    .info-item {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 0;
+    }
+    
+    /* Empty state */
+    .empty-state {
+        padding: 40px 20px;
+        text-align: center;
+    }
+    
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .empty-state p {
+        font-size: 1rem;
+        line-height: 1.4;
     }
 }
 
@@ -1932,4 +2218,493 @@ body {
 .priority-badge.urgent {
     background: rgba(220, 53, 69, 0.1);
     color: #721c24;
+} 
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 8px;
+    }
+    
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .header p {
+        font-size: 0.9rem;
+    }
+    
+    .stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    
+    .status-tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .status-tab {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .component-card {
+        padding: 12px;
+    }
+    
+    .component-actions {
+        flex-direction: column;
+        gap: 6px;
+    }
+    
+    .component-actions .btn {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .modal-content {
+        width: 98%;
+        margin: 2% auto;
+        border-radius: 8px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .form-actions {
+        padding: 15px;
+    }
+    
+    .form-actions .btn {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Landscape orientation for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    
+    .stat-card {
+        padding: 10px;
+    }
+    
+    .stat-card i {
+        font-size: 1.2rem;
+    }
+    
+    .stat-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .stat-card p {
+        font-size: 0.7rem;
+    }
+    
+    .modal-content {
+        max-height: 85vh;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .component-image img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover {
+        transform: none;
+    }
+    
+    .component-card:hover {
+        transform: none;
+    }
+    
+    .stat-card:hover {
+        transform: none;
+    }
+    
+    .status-tab:hover {
+        transform: none;
+    }
+    
+    /* Increase touch targets */
+    .btn {
+        min-height: 44px;
+    }
+    
+    .close {
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .status-tab {
+        min-height: 44px;
+    }
+    
+    .component-actions .btn {
+        min-height: 40px;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .component-card {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .component-name {
+        color: #f7fafc;
+    }
+    
+    .component-category {
+        background: #4a5568;
+        color: #e2e8f0;
+    }
+    
+    .info-label {
+        color: #a0aec0;
+    }
+    
+    .info-value {
+        color: #e2e8f0;
+    }
+    
+    .component-description {
+        background: #4a5568;
+        color: #a0aec0;
+        border-left-color: #4CAF50;
+    }
+    
+    .modal-content {
+        background: #2d3748;
+        color: #e2e8f0;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        background: #4a5568;
+        border-color: #718096;
+        color: #e2e8f0;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: #4CAF50;
+        background: #4a5568;
+    }
+}
+
+/* Enhanced mobile navigation */
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .mobile-nav-toggle {
+        display: block;
+    }
+    
+    .action-buttons {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 1000;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 20px;
+    }
+    
+    .action-buttons.show {
+        display: flex;
+    }
+    
+    .action-buttons .btn {
+        width: 200px;
+        max-width: 80vw;
+        padding: 15px 20px;
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+    
+    .mobile-nav-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+}
+
+/* Floating action button for mobile */
+.fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+}
+
+@media (max-width: 768px) {
+    .fab {
+        display: flex;
+    }
+    
+    .action-buttons {
+        display: none;
+    }
+}
+
+/* Improved scrollbar for mobile */
+@media (max-width: 768px) {
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+}
+
+/* Better focus indicators for accessibility */
+.btn:focus,
+.status-tab:focus,
+.close:focus,
+.fab:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+/* Loading states for better UX */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Improved empty state */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #495057;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Quick actions for mobile */
+.quick-actions {
+    display: none;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+}
+
+.quick-action-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quick-action-btn.add {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+}
+
+.quick-action-btn.quick {
+    background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.quick-action-btn.categories {
+    background: linear-gradient(45deg, #ffc107, #e0a800);
+}
+
+.quick-action-btn:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .quick-actions.show {
+        display: flex;
+    }
+}
+
+/* Enhanced search experience */
+.search-section {
+    position: relative;
+}
+
+.search-clear {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+}
+
+.search-clear.show {
+    display: block;
+}
+
+.search-clear:hover {
+    color: #dc3545;
+}
+
+/* Better filter experience */
+.filter-select {
+    position: relative;
+    cursor: pointer;
+}
+
+.filter-select:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+/* Improved status indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-indicator.pending {
+    background: #ffc107;
+    animation: pulse 2s infinite;
+}
+
+.status-indicator.checked {
+    background: #28a745;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
 } 

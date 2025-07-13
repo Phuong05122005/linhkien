@@ -45,6 +45,9 @@
         <div class="controls">
             <div class="search-section">
                 <input type="text" id="searchInput" placeholder="Tìm kiếm linh kiện..." class="search-input">
+                <button type="button" id="searchClear" class="search-clear" title="Xóa tìm kiếm">
+                    <i class="fas fa-times"></i>
+                </button>
                 <select id="categoryFilter" class="filter-select">
                     <option value="">Tất cả chủ đề</option>
                     <option value="Điện tử">Điện tử</option>
@@ -54,7 +57,7 @@
                     <option value="Khác">Khác</option>
                 </select>
             </div>
-            <div class="action-buttons">
+            <div class="action-buttons" id="actionButtons">
                 <button id="addComponentBtn" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Thêm Linh kiện
                 </button>
@@ -71,6 +74,24 @@
                     <i class="fas fa-share-alt"></i> Chia sẻ
                 </button>
             </div>
+        </div>
+
+        <!-- Floating Action Button for Mobile -->
+        <button id="fab" class="fab" title="Mở menu thao tác">
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <!-- Quick Actions for Mobile -->
+        <div class="quick-actions" id="quickActions">
+            <button class="quick-action-btn add" id="quickAddBtnMobile" title="Thêm nhanh">
+                <i class="fas fa-bolt"></i>
+            </button>
+            <button class="quick-action-btn quick" id="addComponentBtnMobile" title="Thêm linh kiện">
+                <i class="fas fa-plus"></i>
+            </button>
+            <button class="quick-action-btn categories" id="manageCategoriesBtnMobile" title="Quản lý chủ đề">
+                <i class="fas fa-tags"></i>
+            </button>
         </div>
 
         <div class="status-tabs">

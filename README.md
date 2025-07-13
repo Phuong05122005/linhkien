@@ -24,7 +24,11 @@ Một ứng dụng web chuyên nghiệp để quản lý và sắp xếp linh ki
 
 ### 🎨 Giao diện Thông minh
 - **Tùy chỉnh theo vai trò**: Giao diện thay đổi dựa trên vai trò người dùng
-- **Responsive design**: Hoạt động tốt trên mọi thiết bị
+- **Responsive design**: Hoạt động tốt trên mọi thiết bị với tối ưu hóa cho mobile
+- **Floating Action Button**: Menu thao tác nhanh cho điện thoại
+- **Touch-friendly**: Tối ưu hóa cho thiết bị cảm ứng
+- **Dark mode support**: Hỗ trợ chế độ tối tự động
+- **Accessibility**: Cải thiện khả năng tiếp cận cho người khuyết tật
 - **Giao diện chuyên nghiệp**: Thiết kế hiện đại và dễ sử dụng
 
 ### 🔗 Chia sẻ và Liên kết
@@ -44,9 +48,15 @@ Một ứng dụng web chuyên nghiệp để quản lý và sắp xếp linh ki
 
 - **Thiết kế hiện đại** với gradient màu sắc đẹp mắt
 - **Responsive design** - hoạt động tốt trên mọi thiết bị
+- **Mobile-first approach** - tối ưu hóa cho điện thoại
+- **Floating Action Button** - menu thao tác nhanh cho mobile
+- **Touch-friendly** - tối ưu hóa cho thiết bị cảm ứng
+- **Dark mode support** - tự động chuyển đổi theo hệ thống
+- **Accessibility** - hỗ trợ người khuyết tật
 - **Animations mượt mà** và trải nghiệm người dùng tốt
 - **Modal dialogs** cho các thao tác thêm/sửa/xóa
 - **Thông báo real-time** cho các hành động
+- **Status indicators** - hiển thị trạng thái trực quan
 
 ## 📱 Thông tin linh kiện
 

@@ -80,9 +80,25 @@ class ComponentManager {
         // Search and filter
         const searchInput = document.getElementById('searchInput');
         const categoryFilter = document.getElementById('categoryFilter');
+        const searchClear = document.getElementById('searchClear');
 
         searchInput.addEventListener('input', () => this.filterComponents());
         categoryFilter.addEventListener('change', () => this.filterComponents());
+        
+        // Search clear functionality
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            this.filterComponents();
+        });
+        
+        // Show/hide search clear button
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.length > 0) {
+                searchClear.classList.add('show');
+            } else {
+                searchClear.classList.remove('show');
+            }
+        });
 
         // Logout button
         const logoutBtn = document.getElementById('logoutBtn');
@@ -187,6 +203,9 @@ class ComponentManager {
         pendingTab.addEventListener('click', () => this.switchToTab('pending'));
         checkedTab.addEventListener('click', () => this.switchToTab('checked'));
         allTab.addEventListener('click', () => this.switchToTab('all'));
+
+        // Mobile navigation
+        this.setupMobileNavigation();
     }
 
     openModal(component = null) {
@@ -642,7 +661,10 @@ class ComponentManager {
                 
                 <div class="component-header">
                     <div>
-                        <div class="component-name">${this.escapeHtml(component.name)}</div>
+                        <div class="component-name">
+                            <span class="status-indicator ${statusClass}"></span>
+                            ${this.escapeHtml(component.name)}
+                        </div>
                         <div class="component-category">${this.escapeHtml(component.category)}</div>
                     </div>
                     <div class="header-badges">
@@ -759,6 +781,78 @@ class ComponentManager {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
         });
+    }
+
+    setupMobileNavigation() {
+        const fab = document.getElementById('fab');
+        const quickActions = document.getElementById('quickActions');
+        const actionButtons = document.getElementById('actionButtons');
+        
+        // FAB click handler
+        fab.addEventListener('click', () => {
+            quickActions.classList.toggle('show');
+            fab.style.transform = quickActions.classList.contains('show') ? 'rotate(45deg)' : 'rotate(0deg)';
+        });
+        
+        // Quick action buttons
+        const quickAddBtnMobile = document.getElementById('quickAddBtnMobile');
+        const addComponentBtnMobile = document.getElementById('addComponentBtnMobile');
+        const manageCategoriesBtnMobile = document.getElementById('manageCategoriesBtnMobile');
+        
+        quickAddBtnMobile.addEventListener('click', () => {
+            this.openQuickAddModal();
+            this.closeQuickActions();
+        });
+        
+        addComponentBtnMobile.addEventListener('click', () => {
+            this.openModal();
+            this.closeQuickActions();
+        });
+        
+        manageCategoriesBtnMobile.addEventListener('click', () => {
+            this.openCategoryManagementModal();
+            this.closeQuickActions();
+        });
+        
+        // Close quick actions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!fab.contains(e.target) && !quickActions.contains(e.target)) {
+                this.closeQuickActions();
+            }
+        });
+        
+        // Close quick actions when scrolling
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            this.closeQuickActions();
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                // Re-enable FAB after scroll stops
+            }, 100);
+        });
+    }
+    
+    closeQuickActions() {
+        const quickActions = document.getElementById('quickActions');
+        const fab = document.getElementById('fab');
+        
+        quickActions.classList.remove('show');
+        fab.style.transform = 'rotate(0deg)';
+    }
+    
+    showLoadingOverlay() {
+        const overlay = document.createElement('div');
+        overlay.className = 'loading-overlay';
+        overlay.innerHTML = '<div class="loading-spinner"></div>';
+        document.body.appendChild(overlay);
+        
+        return overlay;
+    }
+    
+    hideLoadingOverlay(overlay) {
+        if (overlay && overlay.parentNode) {
+            overlay.parentNode.removeChild(overlay);
+        }
     }
 
     updateStats() {
