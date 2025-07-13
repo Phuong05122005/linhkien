@@ -119,9 +119,12 @@ body, .container {
 
 /* Controls */
 .controls {
-    background: rgba(26, 32, 44, 0.8);
+    background: #fff !important;
+    color: #181818 !important;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(66,153,225,0.07);
+    border: 1.5px solid #e3e8ee;
     backdrop-filter: blur(15px);
-    border-radius: 16px;
     padding: 24px;
     margin-bottom: 32px;
     display: flex;
@@ -129,14 +132,12 @@ body, .container {
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .action-buttons {
+    background: transparent !important;
+    gap: 16px;
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
 }
 
 .search-section {
@@ -1212,18 +1213,12 @@ body, .container {
 
 /* Nút chọn chủ đề giống nút Quản lý Tài khoản */
 .category-filter-btn {
-    background: linear-gradient(135deg, #38b2ac, #319795);
-    color: #fff;
-    border: none;
-    border-radius: 16px;
-    padding: 14px 28px;
-    font-size: 1.1rem;
+    background: linear-gradient(90deg, #4299e1 0%, #48bb78 100%) !important;
+    color: #fff !important;
+    border-radius: 14px;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 16px rgba(49,151,149,0.10);
-    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(66,153,225,0.08);
     transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
     outline: none;
     min-width: 170px;
@@ -1234,8 +1229,8 @@ body, .container {
 }
 
 .category-filter-btn:hover, .category-filter-btn.active {
-    background: linear-gradient(135deg, #319795, #38b2ac);
-    color: #fff;
+    background: linear-gradient(90deg, #4299e1 0%, #48bb78 100%) !important;
+    color: #fff !important;
     transform: translateY(-2px) scale(1.03);
     box-shadow: 0 8px 24px rgba(49,151,149,0.16);
 }
@@ -1247,14 +1242,14 @@ body, .container {
 
 /* Dropdown chọn chủ đề gọn, đẹp, hiện đại */
 .category-filter-dropdown {
-    background: #fff;
-    color: #222;
-    border-radius: 14px;
-    box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+    background: #fff !important;
+    color: #181818 !important;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(66,153,225,0.06);
+    border: 1.5px solid #e3e8ee;
     padding: 12px 0 8px 0;
     min-width: 220px;
     max-width: 320px;
-    border: 1px solid #e2e8f0;
     z-index: 1002 !important;
 }
 
@@ -1833,28 +1828,29 @@ body.modal-open {
 
 /* Status Tabs - Professional Design */
 .status-tabs {
+    background: #fff !important;
+    border-radius: 20px;
+    box-shadow: 0 2px 12px rgba(66,153,225,0.06);
+    border: 1.5px solid #e3e8ee;
+    color: #181818 !important;
     display: flex;
     gap: 12px;
     margin-bottom: 32px;
-    background: rgba(26, 32, 44, 0.8);
-    backdrop-filter: blur(15px);
-    border-radius: 16px;
     padding: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .status-tab {
-    flex: 1;
-    background: transparent;
-    border: none;
-    border-radius: 12px;
-    padding: 16px 20px;
-    color: #a0aec0;
-    font-size: 15px;
+    background: #f7fafd !important;
+    color: #181818 !important;
+    border-radius: 14px;
+    margin: 0 8px;
     font-weight: 600;
+    box-shadow: none;
+    border: none;
+    transition: background 0.18s, color 0.18s;
+    flex: 1;
+    padding: 16px 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1882,8 +1878,8 @@ body.modal-open {
 }
 
 .status-tab.active {
-    background: linear-gradient(135deg, #4299e1, #3182ce);
-    color: white;
+    background: linear-gradient(90deg, #4299e1 0%, #48bb78 100%) !important;
+    color: #fff !important;
     box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
 }
 
