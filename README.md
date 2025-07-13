@@ -33,6 +33,8 @@ Một ứng dụng web chuyên nghiệp để quản lý và sắp xếp linh ki
 ### 👥 Quản lý Tài khoản
 - **Tạo tài khoản**: Admin có thể tạo tài khoản với nhiều vai trò
 - **Phân quyền chi tiết**: Kiểm soát quyền truy cập theo vai trò
+- **Tạo mật khẩu hàng loạt**: Admin có thể tạo mật khẩu mới cho tất cả tài khoản
+- **Xuất danh sách mật khẩu**: Sao chép hoặc tải xuống danh sách mật khẩu mới
 - **Bảo mật**: Hệ thống đăng nhập an toàn
 
 ## 🎨 Giao diện
@@ -127,6 +129,12 @@ Mỗi linh kiện bao gồm:
    - **Có thể thay đổi vai trò** (thêm/bớt vai trò)
    - **Có thể đổi mật khẩu** (để trống nếu không đổi)
 5. **Xóa tài khoản**: Nhấn "Xóa" (không thể xóa tài khoản admin)
+6. **Tạo mật khẩu cho tất cả**: Nhấn "Tạo Mật khẩu Cho Tất cả"
+   - **Cảnh báo**: Thao tác này sẽ thay đổi mật khẩu của TẤT CẢ tài khoản
+   - **Tùy chọn độ dài**: 6, 8, 10, hoặc 12 ký tự
+   - **Tùy chọn mẫu**: Chữ và số, chữ số + ký tự đặc biệt, chỉ số, chỉ chữ
+   - **Kết quả**: Hiển thị danh sách mật khẩu mới với tùy chọn sao chép/tải xuống
+   - **Lưu ý**: Tất cả người dùng sẽ bị đăng xuất và cần đăng nhập lại
 
 ### 11. Tìm kiếm và lọc
 - **Tìm kiếm**: Nhập từ khóa vào ô tìm kiếm

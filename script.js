@@ -98,6 +98,23 @@ class ComponentManager {
         userForm.addEventListener('submit', (e) => this.handleUserFormSubmit(e));
         cancelUserFormBtn.addEventListener('click', () => this.closeUserFormModal());
 
+        // Password generation
+        const generateAllPasswordsBtn = document.getElementById('generateAllPasswordsBtn');
+        const generateAllPasswordsModal = document.getElementById('generateAllPasswordsModal');
+        const passwordResultsModal = document.getElementById('passwordResultsModal');
+        const cancelGeneratePasswordsBtn = document.getElementById('cancelGeneratePasswordsBtn');
+        const confirmGeneratePasswordsBtn = document.getElementById('confirmGeneratePasswordsBtn');
+        const closePasswordResultsBtn = document.getElementById('closePasswordResultsBtn');
+        const copyPasswordsBtn = document.getElementById('copyPasswordsBtn');
+        const downloadPasswordsBtn = document.getElementById('downloadPasswordsBtn');
+
+        generateAllPasswordsBtn.addEventListener('click', () => this.openGenerateAllPasswordsModal());
+        cancelGeneratePasswordsBtn.addEventListener('click', () => this.closeGenerateAllPasswordsModal());
+        confirmGeneratePasswordsBtn.addEventListener('click', () => this.generateAllPasswords());
+        closePasswordResultsBtn.addEventListener('click', () => this.closePasswordResultsModal());
+        copyPasswordsBtn.addEventListener('click', () => this.copyPasswordsList());
+        downloadPasswordsBtn.addEventListener('click', () => this.downloadPasswordsCSV());
+
         // Category management
         const manageCategoriesBtn = document.getElementById('manageCategoriesBtn');
         const categoryManagementModal = document.getElementById('categoryManagementModal');
@@ -117,10 +134,14 @@ class ComponentManager {
         const userManagementCloseBtn = userManagementModal.querySelector('.close');
         const userFormCloseBtn = userFormModal.querySelector('.close');
         const categoryManagementCloseBtn = categoryManagementModal.querySelector('.close');
+        const generateAllPasswordsCloseBtn = generateAllPasswordsModal.querySelector('.close');
+        const passwordResultsCloseBtn = passwordResultsModal.querySelector('.close');
 
         userManagementCloseBtn.addEventListener('click', () => this.closeUserManagementModal());
         userFormCloseBtn.addEventListener('click', () => this.closeUserFormModal());
         categoryManagementCloseBtn.addEventListener('click', () => this.closeCategoryManagementModal());
+        generateAllPasswordsCloseBtn.addEventListener('click', () => this.closeGenerateAllPasswordsModal());
+        passwordResultsCloseBtn.addEventListener('click', () => this.closePasswordResultsModal());
 
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
@@ -130,6 +151,8 @@ class ComponentManager {
             if (e.target === userManagementModal) this.closeUserManagementModal();
             if (e.target === userFormModal) this.closeUserFormModal();
             if (e.target === categoryManagementModal) this.closeCategoryManagementModal();
+            if (e.target === generateAllPasswordsModal) this.closeGenerateAllPasswordsModal();
+            if (e.target === passwordResultsModal) this.closePasswordResultsModal();
             if (e.target === deleteModal) this.closeDeleteModal();
         });
 
@@ -595,12 +618,16 @@ class ComponentManager {
         const userRoles = JSON.parse(localStorage.getItem('userRoles') || '[]');
         const manageUsersBtn = document.getElementById('manageUsersBtn');
         const manageCategoriesBtn = document.getElementById('manageCategoriesBtn');
+        const generateAllPasswordsBtn = document.getElementById('generateAllPasswordsBtn');
         const addComponentBtn = document.getElementById('addComponentBtn');
         const quickAddBtn = document.getElementById('quickAddBtn');
         
         // Hiển thị nút quản lý tài khoản cho admin
         if (userRoles.includes('admin')) {
             manageUsersBtn.style.display = 'inline-flex';
+            generateAllPasswordsBtn.style.display = 'inline-flex';
+        } else {
+            generateAllPasswordsBtn.style.display = 'none';
         }
         
         // Hiển thị nút quản lý chủ đề cho người soạn linh kiện và admin
@@ -645,6 +672,7 @@ class ComponentManager {
         const addComponentBtn = document.getElementById('addComponentBtn');
         const quickAddBtn = document.getElementById('quickAddBtn');
         const manageCategoriesBtn = document.getElementById('manageCategoriesBtn');
+        const generateAllPasswordsBtn = document.getElementById('generateAllPasswordsBtn');
         const editButtons = document.querySelectorAll('.btn-edit');
         const deleteButtons = document.querySelectorAll('.btn-delete');
         
@@ -661,6 +689,13 @@ class ComponentManager {
             manageCategoriesBtn.style.display = 'inline-flex';
         } else {
             manageCategoriesBtn.style.display = 'none';
+        }
+        
+        // Hiển thị nút tạo mật khẩu chỉ cho admin
+        if (userRoles.includes('admin')) {
+            generateAllPasswordsBtn.style.display = 'inline-flex';
+        } else {
+            generateAllPasswordsBtn.style.display = 'none';
         }
         
         editButtons.forEach(btn => {
@@ -820,6 +855,171 @@ class ComponentManager {
 
     saveCategories() {
         localStorage.setItem('categories', JSON.stringify(this.categories));
+    }
+
+    // Password generation methods
+    openGenerateAllPasswordsModal() {
+        const modal = document.getElementById('generateAllPasswordsModal');
+        modal.style.display = 'block';
+    }
+
+    closeGenerateAllPasswordsModal() {
+        const modal = document.getElementById('generateAllPasswordsModal');
+        modal.style.display = 'none';
+    }
+
+    closePasswordResultsModal() {
+        const modal = document.getElementById('passwordResultsModal');
+        modal.style.display = 'none';
+    }
+
+    generateAllPasswords() {
+        const users = JSON.parse(localStorage.getItem('users')) || this.getDefaultUsers();
+        const passwordLength = parseInt(document.getElementById('passwordLength').value);
+        const passwordPattern = document.getElementById('passwordPattern').value;
+        
+        const passwordResults = [];
+        
+        users.forEach(user => {
+            const newPassword = this.generatePassword(passwordLength, passwordPattern);
+            passwordResults.push({
+                username: user.username,
+                displayName: user.displayName,
+                password: newPassword,
+                roles: user.roles
+            });
+            
+            // Cập nhật mật khẩu trong danh sách người dùng
+            user.password = newPassword;
+        });
+        
+        // Lưu danh sách người dùng với mật khẩu mới
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        // Đăng xuất tất cả người dùng
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('userRoles');
+        
+        // Hiển thị kết quả
+        this.showPasswordResults(passwordResults);
+        
+        // Đóng modal xác nhận
+        this.closeGenerateAllPasswordsModal();
+    }
+
+    generatePassword(length, pattern) {
+        let chars = '';
+        let password = '';
+        
+        switch (pattern) {
+            case 'mixed':
+                chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                break;
+            case 'alphanumeric':
+                chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+                break;
+            case 'numeric':
+                chars = '0123456789';
+                break;
+            case 'alphabetic':
+                chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                break;
+            default:
+                chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        }
+        
+        for (let i = 0; i < length; i++) {
+            password += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        
+        return password;
+    }
+
+    showPasswordResults(passwordResults) {
+        const modal = document.getElementById('passwordResultsModal');
+        const tableBody = document.getElementById('passwordResultsTableBody');
+        
+        // Lưu kết quả để sử dụng cho copy/download
+        this.currentPasswordResults = passwordResults;
+        
+        // Hiển thị kết quả trong bảng
+        tableBody.innerHTML = '';
+        passwordResults.forEach(result => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${this.escapeHtml(result.username)}</td>
+                <td>${this.escapeHtml(result.displayName)}</td>
+                <td>${this.escapeHtml(result.password)}</td>
+                <td>${this.renderUserRoles(result.roles)}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+        
+        modal.style.display = 'block';
+    }
+
+    copyPasswordsList() {
+        if (!this.currentPasswordResults) return;
+        
+        let csvContent = 'Tên đăng nhập,Tên hiển thị,Mật khẩu mới,Vai trò\n';
+        
+        this.currentPasswordResults.forEach(result => {
+            const roles = result.roles.map(role => CONFIG.ROLE_LABELS[role]).join(', ');
+            csvContent += `"${result.username}","${result.displayName}","${result.password}","${roles}"\n`;
+        });
+        
+        // Tạo text để copy
+        let textContent = 'DANH SÁCH MẬT KHẨU MỚI\n';
+        textContent += '========================\n\n';
+        
+        this.currentPasswordResults.forEach(result => {
+            const roles = result.roles.map(role => CONFIG.ROLE_LABELS[role]).join(', ');
+            textContent += `Tên đăng nhập: ${result.username}\n`;
+            textContent += `Tên hiển thị: ${result.displayName}\n`;
+            textContent += `Mật khẩu mới: ${result.password}\n`;
+            textContent += `Vai trò: ${roles}\n`;
+            textContent += '------------------------\n';
+        });
+        
+        // Copy vào clipboard
+        navigator.clipboard.writeText(textContent).then(() => {
+            this.showMessage('Đã sao chép danh sách mật khẩu vào clipboard!', 'success');
+        }).catch(() => {
+            // Fallback cho trình duyệt cũ
+            const textArea = document.createElement('textarea');
+            textArea.value = textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            this.showMessage('Đã sao chép danh sách mật khẩu vào clipboard!', 'success');
+        });
+    }
+
+    downloadPasswordsCSV() {
+        if (!this.currentPasswordResults) return;
+        
+        let csvContent = 'Tên đăng nhập,Tên hiển thị,Mật khẩu mới,Vai trò\n';
+        
+        this.currentPasswordResults.forEach(result => {
+            const roles = result.roles.map(role => CONFIG.ROLE_LABELS[role]).join(', ');
+            csvContent += `"${result.username}","${result.displayName}","${result.password}","${roles}"\n`;
+        });
+        
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `mat_khau_moi_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            this.showMessage('Đã tải xuống file CSV thành công!', 'success');
+        }
     }
 
     fillUserForm(user) {

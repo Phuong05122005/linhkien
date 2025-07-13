@@ -1051,3 +1051,185 @@ body {
         align-self: flex-end;
     }
 } 
+
+/* Modal tạo mật khẩu */
+.warning-message {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+}
+
+.warning-message h3 {
+    color: #856404;
+    margin-bottom: 10px;
+}
+
+.warning-message p {
+    color: #856404;
+    margin-bottom: 10px;
+}
+
+.warning-message ul {
+    text-align: left;
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.warning-message li {
+    color: #856404;
+    margin-bottom: 5px;
+}
+
+.password-options {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.password-options h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Modal kết quả mật khẩu */
+.success-message {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+}
+
+.success-message h3 {
+    color: #155724;
+    margin-bottom: 10px;
+}
+
+.success-message p {
+    color: #155724;
+    margin-bottom: 10px;
+}
+
+.password-results {
+    margin-bottom: 20px;
+}
+
+.password-results h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.password-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.password-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.password-table th,
+.password-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.password-table th {
+    background: #f8f9fa;
+    font-weight: bold;
+    color: #333;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.password-table tr:hover {
+    background: #f8f9fa;
+}
+
+.password-table td:nth-child(3) {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #007bff;
+    background: #f8f9fa;
+}
+
+.export-options {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.export-options h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.export-options .btn {
+    margin: 0 10px;
+}
+
+.important-notice {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.important-notice h4 {
+    color: #856404;
+    margin-bottom: 15px;
+}
+
+.important-notice ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.important-notice li {
+    color: #856404;
+    margin-bottom: 8px;
+}
+
+/* Responsive cho modal mật khẩu */
+@media (max-width: 768px) {
+    .password-table-container {
+        max-height: 200px;
+    }
+    
+    .password-table th,
+    .password-table td {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .export-options .btn {
+        margin: 5px;
+        width: 100%;
+    }
+} 
