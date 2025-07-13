@@ -1602,7 +1602,7 @@ body, .container {
 } 
 
 /* Modal footer fixed for add/edit component */
-.component-modal-footer, .modal-footer {
+.component-modal-footer, .modal-footer, .form-actions {
     position: sticky;
     bottom: 0;
     left: 0;
@@ -1612,7 +1612,8 @@ body, .container {
     border-top: 1px solid #e3e8ee;
     padding: 16px 24px 16px 24px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center !important;
+    text-align: center;
     gap: 12px;
     z-index: 10;
     box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
@@ -1630,7 +1631,7 @@ body, .container {
         max-height: 65vh;
         padding-bottom: 160px;
     }
-    .component-modal-footer, .modal-footer {
+    .component-modal-footer, .modal-footer, .form-actions {
         padding: 14px 10px;
     }
 }
