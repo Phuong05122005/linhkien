@@ -2419,3 +2419,51 @@ label {
 .form-layout::-webkit-scrollbar-thumb:hover, .modal-body::-webkit-scrollbar-thumb:hover, .users-table-container::-webkit-scrollbar-thumb:hover, .categories-container::-webkit-scrollbar-thumb:hover, .components-grid::-webkit-scrollbar-thumb:hover, .merged-components-section::-webkit-scrollbar-thumb:hover, .password-table-container::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #3182ce 0%, #63b3ed 100%);
 } 
+
+/* Modal Thêm linh kiện: vùng nội dung cuộn, footer cố định, thanh cuộn rõ */
+.component-modal {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  max-height: 90vh;
+  min-height: 400px;
+}
+.component-modal-content {
+  flex: 1 1 auto;
+  overflow-y: auto !important;
+  min-height: 0;
+  max-height: 100%;
+  padding-bottom: 24px;
+}
+.form-layout {
+  overflow-y: auto !important;
+  max-height: 70vh;
+  min-height: 0;
+}
+.component-modal-footer {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #f5f8fa;
+  border-top: 1px solid #e3e8ee;
+  padding: 20px 32px;
+  z-index: 10;
+  box-shadow: 0 -2px 8px rgba(66,153,225,0.06);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+/* Thanh cuộn nổi bật cho modal Thêm linh kiện */
+.component-modal-content::-webkit-scrollbar, .form-layout::-webkit-scrollbar {
+  width: 10px;
+  background: #eaf1fb;
+}
+.component-modal-content::-webkit-scrollbar-thumb, .form-layout::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #4299e1 40%, #90cdf4 100%);
+  border-radius: 8px;
+}
+.component-modal-content::-webkit-scrollbar-thumb:hover, .form-layout::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #3182ce 0%, #63b3ed 100%);
+} 
