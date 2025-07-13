@@ -48,14 +48,30 @@
                 <button type="button" id="searchClear" class="search-clear" title="Xóa tìm kiếm">
                     <i class="fas fa-times"></i>
                 </button>
-                <select id="categoryFilter" class="filter-select">
-                    <option value="">Tất cả chủ đề</option>
-                    <option value="Điện tử">Điện tử</option>
-                    <option value="Cơ khí">Cơ khí</option>
-                    <option value="Máy tính">Máy tính</option>
-                    <option value="Điện thoại">Điện thoại</option>
-                    <option value="Khác">Khác</option>
-                </select>
+                <div class="multi-category-filter">
+                    <button type="button" id="categoryFilterBtn" class="category-filter-btn">
+                        <i class="fas fa-filter"></i>
+                        <span id="categoryFilterText">Tất cả chủ đề</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div id="categoryFilterDropdown" class="category-filter-dropdown">
+                        <div class="category-filter-header">
+                            <h4>Chọn chủ đề (có thể chọn nhiều)</h4>
+                            <button type="button" id="selectAllCategories" class="btn-link">Chọn tất cả</button>
+                        </div>
+                        <div class="category-checkboxes" id="categoryCheckboxes">
+                            <!-- Categories will be populated by JavaScript -->
+                        </div>
+                        <div class="category-filter-actions">
+                            <button type="button" id="applyCategoryFilter" class="btn btn-primary btn-sm">
+                                <i class="fas fa-check"></i> Áp dụng
+                            </button>
+                            <button type="button" id="clearCategoryFilter" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-times"></i> Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="action-buttons" id="actionButtons">
                 <button id="addComponentBtn" class="btn btn-primary">
@@ -137,6 +153,20 @@
                     <h3 id="currentUserName">Thiết lập</h3>
                     <p>Tên người dùng</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Merged Components Section -->
+        <div id="mergedComponentsSection" class="merged-components-section" style="display: none;">
+            <div class="merged-components-header">
+                <div class="merged-components-title">
+                    <i class="fas fa-layer-group"></i>
+                    Linh kiện đã gộp từ các chủ đề đã chọn
+                </div>
+                <div class="merged-components-count" id="mergedComponentsCount">0</div>
+            </div>
+            <div id="mergedComponentsList">
+                <!-- Merged components will be displayed here -->
             </div>
         </div>
 

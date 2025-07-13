@@ -14,6 +14,8 @@ Một ứng dụng web chuyên nghiệp để quản lý và sắp xếp linh ki
 - **Thêm, sửa, xóa** linh kiện với quyền hạn theo vai trò
 - **Upload hình ảnh** linh kiện với drag & drop và preview
 - **Phân loại** theo chủ đề (Điện tử, Cơ khí, Máy tính, Điện thoại, Khác)
+- **Multi-category filter** - chọn nhiều chủ đề cùng lúc
+- **Gộp linh kiện trùng lặp** - tự động gộp và tính tổng số lượng
 - **Mức độ ưu tiên** (Thấp, Trung bình, Cao, Khẩn cấp) với màu sắc phân biệt
 - **Vị trí lưu trữ** để ghi chú nơi cất giữ linh kiện
 - **Tìm kiếm và lọc** nhanh chóng
@@ -76,9 +78,7 @@ Mỗi linh kiện bao gồm:
 ## 🛠️ Cách sử dụng
 
 ### 1. Khởi chạy ứng dụng
-- **Mở file `login.html`** trong trình duyệt web (trang đăng nhập chính)
-- Hoặc mở file `app.html` (sẽ tự động chuyển hướng đến trang đăng nhập nếu chưa đăng nhập)
-- Hệ thống sẽ bắt đầu với dữ liệu trống, sẵn sàng cho bạn thêm linh kiện thực tế
+
 
 ### 2. Đăng nhập hệ thống
 - **Liên hệ quản trị viên** để được cấp tài khoản
@@ -157,8 +157,27 @@ Mỗi linh kiện bao gồm:
 
 ### 11. Tìm kiếm và lọc
 - **Tìm kiếm**: Nhập từ khóa vào ô tìm kiếm
-- **Lọc theo chủ đề**: Chọn chủ đề từ dropdown
-- Kết hợp cả hai để tìm kiếm chính xác hơn
+- **Lọc theo chủ đề**: 
+  - **Chọn một chủ đề**: Nhấn vào nút filter và chọn một chủ đề
+  - **Chọn nhiều chủ đề**: Nhấn vào nút filter, chọn 2 chủ đề trở lên, nhấn "Áp dụng"
+  - **Gộp linh kiện trùng lặp**: Khi chọn 2+ chủ đề, hệ thống sẽ tự động gộp linh kiện trùng tên và tính tổng số lượng
+- Kết hợp tìm kiếm và lọc để tìm kiếm chính xác hơn
+
+### 12. Multi-Category Filter và Gộp Linh kiện
+1. **Chọn nhiều chủ đề**:
+   - Nhấn vào nút filter (có icon filter)
+   - Chọn 2 chủ đề trở lên bằng checkbox
+   - Nhấn "Áp dụng" để lọc
+
+2. **Xem linh kiện đã gộp**:
+   - Khi chọn 2+ chủ đề, phần "Linh kiện đã gộp" sẽ hiển thị
+   - Hiển thị danh sách linh kiện trùng tên từ các chủ đề đã chọn
+   - Tổng số lượng được tính tự động
+   - Thông tin về chủ đề gốc và số phiên bản
+
+3. **Xóa filter**:
+   - Nhấn "Xóa" trong dropdown filter
+   - Hoặc bỏ chọn tất cả checkbox và nhấn "Áp dụng"
 
 ## 💾 Lưu trữ dữ liệu
 
@@ -215,57 +234,3 @@ Nếu có vấn đề hoặc cần hỗ trợ, vui lòng:
 ---
 
 **Hệ thống Quản lý Linh kiện** - Giải pháp quản lý linh kiện hiệu quả và chuyên nghiệp! 🎯 
-
-## ️ **Cách 1: Mở trực tiếp từ file (Đơn giản nhất)**
-
-1. **Mở File Explorer** (Windows Explorer)
-2. **Điều hướng đến thư mục** chứa các file đã tạo:
-   - `login.html` (trang đăng nhập chính)
-   - `app.html` (trang quản lý chính)
-   - `config.js` (cấu hình hệ thống)
-   - `styles.css` 
-   - `script.js`
-   - `README.md`
-
-3. **Double-click vào file `login.html`** - trang đăng nhập sẽ mở trong trình duyệt mặc định
-
-## 🌐 **Cách 2: Kéo thả vào trình duyệt**
-
-1. **Mở trình duyệt** (Chrome, Firefox, Edge, Safari)
-2. **Kéo file `login.html`** từ File Explorer vào cửa sổ trình duyệt
-
-## 📁 **Cách 3: Mở từ trình duyệt**
-
-1. **Mở trình duyệt**
-2. **Nhấn Ctrl + O** (hoặc Cmd + O trên Mac)
-3. **Chọn file `login.html`** từ thư mục dự án
-
-## 🚀 **Cách 4: Sử dụng Live Server (Khuyến nghị cho phát triển)**
-
-Nếu bạn có Visual Studio Code:
-1. **Cài đặt extension "Live Server"**
-2. **Right-click vào file `login.html`**
-3. **Chọn "Open with Live Server"**
-
-##  **Vị trí file:**
-
-Dựa trên thông tin workspace của bạn, các file nằm ở:
-```
-D:\Web check linh kiện\
-├── login.html (trang chính)
-├── index.html (trang quản lý)
-├── login-styles.css
-├── login-script.js
-├── styles.css
-├── script.js
-└── README.md
-```
-
-## ✅ **Sau khi mở:**
-
-- Trang đăng nhập sẽ hiển thị với giao diện đẹp mắt
-- Liên hệ quản trị viên để được cấp tài khoản
-- Sau khi đăng nhập thành công, sẽ chuyển hướng đến trang quản lý linh kiện
-- Có 8 linh kiện mẫu được tải sẵn trong hệ thống
-
-**Khuyến nghị:** Sử dụng **Cách 1** (double-click file `login.html`) vì đơn giản và nhanh nhất! 🎯 

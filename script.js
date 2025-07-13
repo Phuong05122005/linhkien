@@ -79,11 +79,9 @@ class ComponentManager {
 
         // Search and filter
         const searchInput = document.getElementById('searchInput');
-        const categoryFilter = document.getElementById('categoryFilter');
         const searchClear = document.getElementById('searchClear');
 
         searchInput.addEventListener('input', () => this.filterComponents());
-        categoryFilter.addEventListener('change', () => this.filterComponents());
         
         // Search clear functionality
         searchClear.addEventListener('click', () => {
@@ -99,6 +97,9 @@ class ComponentManager {
                 searchClear.classList.remove('show');
             }
         });
+
+        // Multi-category filter
+        this.setupMultiCategoryFilter();
 
         // Logout button
         const logoutBtn = document.getElementById('logoutBtn');
@@ -545,7 +546,6 @@ class ComponentManager {
 
     filterComponents() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const categoryFilter = document.getElementById('categoryFilter').value;
 
         let filtered = this.components.filter(component => {
             const matchesSearch = component.name.toLowerCase().includes(searchTerm) ||
@@ -553,7 +553,9 @@ class ComponentManager {
                                 component.inspector.toLowerCase().includes(searchTerm) ||
                                 (component.description && component.description.toLowerCase().includes(searchTerm));
             
-            const matchesCategory = !categoryFilter || component.category === categoryFilter;
+            const matchesCategory = !this.selectedCategories || 
+                                  this.selectedCategories.length === 0 || 
+                                  this.selectedCategories.includes(component.category);
 
             return matchesSearch && matchesCategory;
         });
@@ -855,6 +857,203 @@ class ComponentManager {
         }
     }
 
+    setupMultiCategoryFilter() {
+        const categoryFilterBtn = document.getElementById('categoryFilterBtn');
+        const categoryFilterDropdown = document.getElementById('categoryFilterDropdown');
+        const selectAllCategories = document.getElementById('selectAllCategories');
+        const applyCategoryFilter = document.getElementById('applyCategoryFilter');
+        const clearCategoryFilter = document.getElementById('clearCategoryFilter');
+        const categoryCheckboxes = document.getElementById('categoryCheckboxes');
+
+        // Toggle dropdown
+        categoryFilterBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            categoryFilterDropdown.classList.toggle('show');
+            categoryFilterBtn.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!categoryFilterBtn.contains(e.target) && !categoryFilterDropdown.contains(e.target)) {
+                categoryFilterDropdown.classList.remove('show');
+                categoryFilterBtn.classList.remove('active');
+            }
+        });
+
+        // Select all categories
+        selectAllCategories.addEventListener('click', () => {
+            const checkboxes = categoryCheckboxes.querySelectorAll('input[type="checkbox"]');
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            
+            checkboxes.forEach(cb => {
+                cb.checked = !allChecked;
+            });
+            
+            selectAllCategories.textContent = allChecked ? 'Chọn tất cả' : 'Bỏ chọn tất cả';
+        });
+
+        // Apply filter
+        applyCategoryFilter.addEventListener('click', () => {
+            this.applyMultiCategoryFilter();
+            categoryFilterDropdown.classList.remove('show');
+            categoryFilterBtn.classList.remove('active');
+        });
+
+        // Clear filter
+        clearCategoryFilter.addEventListener('click', () => {
+            this.clearMultiCategoryFilter();
+            categoryFilterDropdown.classList.remove('show');
+            categoryFilterBtn.classList.remove('active');
+        });
+
+        // Populate categories
+        this.populateCategoryCheckboxes();
+    }
+
+    populateCategoryCheckboxes() {
+        const categoryCheckboxes = document.getElementById('categoryCheckboxes');
+        const categoryCounts = this.getCategoryCounts();
+        
+        categoryCheckboxes.innerHTML = '';
+        
+        this.categories.forEach(category => {
+            const count = categoryCounts[category] || 0;
+            const checkboxItem = document.createElement('div');
+            checkboxItem.className = 'category-checkbox-item';
+            checkboxItem.innerHTML = `
+                <input type="checkbox" id="cat_${category}" value="${category}">
+                <label for="cat_${category}">
+                    ${category}
+                    <span class="category-count">${count}</span>
+                </label>
+            `;
+            categoryCheckboxes.appendChild(checkboxItem);
+        });
+    }
+
+    getCategoryCounts() {
+        const counts = {};
+        this.components.forEach(component => {
+            counts[component.category] = (counts[component.category] || 0) + 1;
+        });
+        return counts;
+    }
+
+    getSelectedCategories() {
+        const checkboxes = document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked');
+        return Array.from(checkboxes).map(cb => cb.value);
+    }
+
+    applyMultiCategoryFilter() {
+        const selectedCategories = this.getSelectedCategories();
+        const categoryFilterText = document.getElementById('categoryFilterText');
+        
+        if (selectedCategories.length === 0) {
+            categoryFilterText.textContent = 'Tất cả chủ đề';
+            this.selectedCategories = [];
+        } else if (selectedCategories.length === 1) {
+            categoryFilterText.textContent = selectedCategories[0];
+            this.selectedCategories = selectedCategories;
+        } else {
+            categoryFilterText.textContent = `${selectedCategories.length} chủ đề đã chọn`;
+            this.selectedCategories = selectedCategories;
+        }
+
+        this.filterComponents();
+        this.updateMergedComponents();
+    }
+
+    clearMultiCategoryFilter() {
+        const checkboxes = document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.checked = false);
+        
+        const categoryFilterText = document.getElementById('categoryFilterText');
+        categoryFilterText.textContent = 'Tất cả chủ đề';
+        
+        this.selectedCategories = [];
+        this.filterComponents();
+        this.hideMergedComponents();
+    }
+
+    updateMergedComponents() {
+        if (!this.selectedCategories || this.selectedCategories.length < 2) {
+            this.hideMergedComponents();
+            return;
+        }
+
+        const mergedComponents = this.getMergedComponents();
+        this.displayMergedComponents(mergedComponents);
+    }
+
+    getMergedComponents() {
+        const filteredComponents = this.components.filter(component => 
+            this.selectedCategories.includes(component.category)
+        );
+
+        // Group by component name and merge quantities
+        const mergedMap = new Map();
+        
+        filteredComponents.forEach(component => {
+            const key = component.name.toLowerCase().trim();
+            if (mergedMap.has(key)) {
+                const existing = mergedMap.get(key);
+                existing.totalQuantity += component.quantity;
+                existing.components.push(component);
+            } else {
+                mergedMap.set(key, {
+                    name: component.name,
+                    totalQuantity: component.quantity,
+                    components: [component],
+                    categories: new Set([component.category])
+                });
+            }
+        });
+
+        // Convert to array and add category information
+        return Array.from(mergedMap.values()).map(item => ({
+            ...item,
+            categories: Array.from(item.categories)
+        }));
+    }
+
+    displayMergedComponents(mergedComponents) {
+        const mergedSection = document.getElementById('mergedComponentsSection');
+        const mergedList = document.getElementById('mergedComponentsList');
+        const mergedCount = document.getElementById('mergedComponentsCount');
+
+        if (mergedComponents.length === 0) {
+            mergedList.innerHTML = `
+                <div class="merged-empty-state">
+                    <i class="fas fa-search"></i>
+                    <h4>Không tìm thấy linh kiện trùng lặp</h4>
+                    <p>Không có linh kiện nào trùng tên trong các chủ đề đã chọn</p>
+                </div>
+            `;
+        } else {
+            mergedList.innerHTML = mergedComponents.map(item => `
+                <div class="merged-component-item">
+                    <div class="merged-component-info">
+                        <div class="merged-component-name">${this.escapeHtml(item.name)}</div>
+                        <div class="merged-component-details">
+                            Chủ đề: ${item.categories.join(', ')} | 
+                            ${item.components.length} phiên bản | 
+                            Tổng: ${item.totalQuantity} cái
+                        </div>
+                    </div>
+                    <div class="merged-component-total">${item.totalQuantity}</div>
+                </div>
+            `).join('');
+        }
+
+        mergedCount.textContent = mergedComponents.length;
+        mergedSection.style.display = 'block';
+    }
+
+    hideMergedComponents() {
+        const mergedSection = document.getElementById('mergedComponentsSection');
+        mergedSection.style.display = 'none';
+    }
+
     updateStats() {
         const totalComponents = this.components.length;
         const totalCategories = this.categories.length;
@@ -1138,7 +1337,6 @@ class ComponentManager {
         // Cập nhật dropdown trong modal thêm linh kiện
         const componentCategory = document.getElementById('componentCategory');
         const quickComponentCategory = document.getElementById('quickComponentCategory');
-        const categoryFilter = document.getElementById('categoryFilter');
 
         const updateDropdown = (dropdown) => {
             const currentValue = dropdown.value;
@@ -1159,7 +1357,9 @@ class ComponentManager {
 
         updateDropdown(componentCategory);
         updateDropdown(quickComponentCategory);
-        updateDropdown(categoryFilter);
+        
+        // Cập nhật multi-category filter
+        this.populateCategoryCheckboxes();
     }
 
     saveCategories() {
