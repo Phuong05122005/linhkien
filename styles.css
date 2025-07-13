@@ -2099,3 +2099,147 @@ body.modal-open {
     margin-top: 8px;
     display: block;
 } 
+
+/* Account Management Modal Styles */
+.account-management-header {
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    color: white;
+    padding: 28px 32px 18px 32px;
+    border-radius: 20px 20px 0 0;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.account-management-body {
+    background: rgba(26,32,44,0.95);
+    border-radius: 0 0 20px 20px;
+    padding: 32px;
+}
+
+.account-actions-row {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 24px;
+    align-items: center;
+}
+
+.account-actions-row button {
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    box-shadow: 0 4px 16px rgba(66,153,225,0.08);
+    transition: background 0.2s, transform 0.1s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-actions-row .btn-success {
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    color: #fff;
+}
+.account-actions-row .btn-success:hover {
+    background: linear-gradient(135deg, #38a169, #48bb78);
+    transform: translateY(-2px) scale(1.03);
+}
+.account-actions-row .btn-warning {
+    background: linear-gradient(135deg, #ed8936, #dd6b20);
+    color: #fff;
+}
+.account-actions-row .btn-warning:hover {
+    background: linear-gradient(135deg, #dd6b20, #ed8936);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.users-table-container {
+    background: rgba(45,55,72,0.7);
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(66,153,225,0.05);
+    padding: 0;
+    overflow-x: auto;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #e2e8f0;
+    font-size: 1rem;
+    min-width: 700px;
+}
+
+.users-table thead tr {
+    background: rgba(66,153,225,0.15);
+}
+
+.users-table th, .users-table td {
+    padding: 14px 12px;
+    text-align: left;
+}
+
+.users-table th {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #63b3ed;
+    border-bottom: 2px solid #4299e1;
+}
+
+.users-table tr:last-child td {
+    border-bottom: none;
+}
+
+.users-table td {
+    border-bottom: 1px solid rgba(66,153,225,0.08);
+}
+
+.users-table tr:last-child td {
+    border-radius: 0 0 16px 16px;
+}
+
+.users-table .btn {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: none;
+    margin-right: 4px;
+}
+
+.users-table .btn-edit {
+    background: linear-gradient(135deg, #f6e05e, #ecc94b);
+    color: #333;
+}
+.users-table .btn-edit:hover {
+    background: linear-gradient(135deg, #ecc94b, #f6e05e);
+    color: #222;
+}
+
+.users-table .btn-delete {
+    background: linear-gradient(135deg, #f56565, #e53e3e);
+    color: #fff;
+}
+.users-table .btn-delete:hover {
+    background: linear-gradient(135deg, #e53e3e, #f56565);
+    color: #fff;
+}
+
+@media (max-width: 900px) {
+    .users-table {
+        min-width: 500px;
+        font-size: 0.95rem;
+    }
+    .account-management-body {
+        padding: 16px;
+    }
+    .account-management-header {
+        font-size: 1.3rem;
+        padding: 18px 16px 12px 16px;
+    }
+} 
