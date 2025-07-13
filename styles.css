@@ -1617,31 +1617,30 @@ body.modal-open {
 .component-modal-content {
     flex: 1 1 auto;
     overflow-y: auto;
-    padding-bottom: 140px;
+    padding-bottom: 24px;
 }
 
 .component-modal-footer {
     flex-shrink: 0;
-    position: static;
+    position: relative;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    background: #fff;
-    border-top: 1px solid #e9ecef;
-    padding: 16px 24px;
+    background: rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(66,153,225,0.08);
+    padding: 20px 32px;
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 16px;
     z-index: 10;
     box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
+    backdrop-filter: blur(8px);
 }
 
 @media (max-width: 768px) {
     .component-modal {
         height: 98vh;
         max-height: 98vh;
-        min-height: 300px;
-    }
-    .component-modal-content {
-        padding-bottom: 160px;
     }
     .component-modal-footer {
         padding: 14px 10px;
