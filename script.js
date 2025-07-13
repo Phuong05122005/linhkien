@@ -871,15 +871,15 @@ class ComponentManager {
         const clearCategoryFilter = document.getElementById('clearCategoryFilter');
         const categoryCheckboxes = document.getElementById('categoryCheckboxes');
 
-        // Toggle dropdown
+        // Chỉ hiện dropdown khi bấm nút
         categoryFilterBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             categoryFilterDropdown.classList.toggle('show');
             categoryFilterBtn.classList.toggle('active');
         });
 
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
+        // Ẩn dropdown khi bấm ra ngoài
+        document.addEventListener('mousedown', (e) => {
             if (!categoryFilterBtn.contains(e.target) && !categoryFilterDropdown.contains(e.target)) {
                 categoryFilterDropdown.classList.remove('show');
                 categoryFilterBtn.classList.remove('active');
