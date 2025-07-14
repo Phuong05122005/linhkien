@@ -131,6 +131,67 @@ class LoginSystem {
     }
 }
 
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWKWkD3qiPxmsJ9Z8TUfonC_SMxyJIMef1PkwYQAPU5co6fglt2DtPDAG0b2JOwsnhIg/exec';
+
+// Hàm đăng ký tài khoản
+function register(username, password) {
+  fetch(`${SCRIPT_URL}?action=register`, {
+    method: 'POST',
+    body: JSON.stringify({ username, password }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert('Đăng ký thành công!');
+    } else {
+      alert('Lỗi: ' + data.message);
+    }
+  })
+  .catch(err => alert('Lỗi kết nối: ' + err));
+}
+
+// Hàm đăng nhập
+function login(username, password) {
+  fetch(`${SCRIPT_URL}?action=login`, {
+    method: 'POST',
+    body: JSON.stringify({ username, password }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert('Đăng nhập thành công!');
+      // Thực hiện chuyển trang hoặc lưu trạng thái đăng nhập tại đây nếu muốn
+    } else {
+      alert('Sai tài khoản hoặc mật khẩu!');
+    }
+  })
+  .catch(err => alert('Lỗi kết nối: ' + err));
+}
+
+// Gắn sự kiện submit cho form đăng ký
+const registerForm = document.getElementById('registerForm');
+if (registerForm) {
+  registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('regUsername').value;
+    const password = document.getElementById('regPassword').value;
+    register(username, password);
+  });
+}
+
+// Gắn sự kiện submit cho form đăng nhập
+const loginForm = document.getElementById('loginForm');
+if (loginForm) {
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    login(username, password);
+  });
+}
+
 // Khởi tạo hệ thống đăng nhập nhiều tài khoản
 let loginSystem;
 document.addEventListener('DOMContentLoaded', () => {
