@@ -131,7 +131,7 @@ class LoginSystem {
     }
 }
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnE3S65QxiZcUOP2fCtSZaBGJ47yncjrEuRILQNJSQxYYA5x2UHHosNZ8OO46jx_lk/exec'; // Dán link vừa copy ở trên
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyr4QTo47fccBB53ofWWAjJuFsFbn_Fbs6Knjvf-7tBa2McGj_eQ3ZzMEvP1C1nqUMZ/exec'; // Dán link vừa copy ở trên
 
 function register(username, password) {
   fetch(`${SCRIPT_URL}?action=register`, {
