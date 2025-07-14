@@ -68,12 +68,20 @@ class LoginSystem {
             this.showMessage('Vui lòng nhập đầy đủ thông tin!', 'error');
             return;
         }
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const user = users.find(u => u.username === username);
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        const userIndex = users.findIndex(u => u.username === username);
+        const user = users[userIndex];
         if (!user || user.password !== password) {
             this.showMessage('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
             return;
         }
+        // Lưu lịch sử đăng nhập
+        const now = new Date().toISOString();
+        if (!user.firstLogin) user.firstLogin = now;
+        user.lastLogin = now;
+        user.loginCount = (user.loginCount || 0) + 1;
+        users[userIndex] = user;
+        localStorage.setItem('users', JSON.stringify(users));
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('currentUser', user.displayName);
         localStorage.setItem('userRoles', JSON.stringify(user.roles || ['admin']));

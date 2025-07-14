@@ -344,6 +344,9 @@
                     <button id="generateAllPasswordsBtn" class="btn btn-warning">
                         <i class="fas fa-key"></i> Tạo Mật khẩu Cho Tất cả
                     </button>
+                    <button id="accountManagerBtn" class="btn btn-info">
+                        <i class="fas fa-users"></i> Quản lý tài khoản
+                    </button>
                 </div>
                 <div class="users-table-container">
                     <table class="users-table">
@@ -619,6 +622,34 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="cancelCategoryFilter">Hủy</button>
                 <button type="button" class="btn btn-primary" id="applyCategoryFilter"><i class="fas fa-check"></i> Áp dụng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal quản lý tài khoản đăng nhập -->
+    <div id="accountManagerModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>Quản lý tài khoản đăng nhập</h2>
+                <span class="close" id="closeAccountManagerModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Tên đăng nhập</th>
+                            <th>Mật khẩu</th>
+                            <th>Tên hiển thị</th>
+                            <th>Vai trò</th>
+                            <th>Lần đầu đăng nhập</th>
+                            <th>Lần cuối đăng nhập</th>
+                            <th>Số lần truy cập</th>
+                        </tr>
+                    </thead>
+                    <tbody id="accountManagerTableBody">
+                        <!-- Dữ liệu tài khoản sẽ được render ở đây -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

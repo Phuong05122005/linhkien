@@ -244,6 +244,15 @@ class ComponentManager {
 
         // Mobile navigation
         this.setupMobileNavigation();
+
+        // Quản lý tài khoản đăng nhập
+        const accountManagerBtn = document.getElementById('accountManagerBtn');
+        const accountManagerModal = document.getElementById('accountManagerModal');
+        const closeAccountManagerModal = document.getElementById('closeAccountManagerModal');
+        if (accountManagerBtn && accountManagerModal && closeAccountManagerModal) {
+            accountManagerBtn.addEventListener('click', () => this.openAccountManagerModal());
+            closeAccountManagerModal.addEventListener('click', () => accountManagerModal.style.display = 'none');
+        }
     }
 
     openModal(component = null) {
@@ -1917,6 +1926,27 @@ class ComponentManager {
         const subject = encodeURIComponent(CONFIG.SHARE.title);
         const body = encodeURIComponent(`${CONFIG.SHARE.description}\n\nTruy cập tại: ${window.location.href}`);
         window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
+    }
+
+    openAccountManagerModal() {
+        const modal = document.getElementById('accountManagerModal');
+        const tbody = document.getElementById('accountManagerTableBody');
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        tbody.innerHTML = users.map(user => {
+            const pwId = 'pw_' + user.username;
+            return `<tr>
+                <td>${this.escapeHtml(user.username)}</td>
+                <td><input type='password' value='${user.password}' id='${pwId}' readonly style='width:90px;'>
+                    <button onclick="document.getElementById('${pwId}').type = document.getElementById('${pwId}').type === 'password' ? 'text' : 'password'" style='margin-left:4px;'><i class='fas fa-eye'></i></button>
+                </td>
+                <td>${this.escapeHtml(user.displayName)}</td>
+                <td>${(user.roles||[]).join(', ')}</td>
+                <td>${user.firstLogin ? new Date(user.firstLogin).toLocaleString('vi-VN') : ''}</td>
+                <td>${user.lastLogin ? new Date(user.lastLogin).toLocaleString('vi-VN') : ''}</td>
+                <td>${user.loginCount || 0}</td>
+            </tr>`;
+        }).join('');
+        modal.style.display = 'block';
     }
 }
 
