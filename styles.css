@@ -1213,19 +1213,14 @@ body, .container {
 
 /* Nút chọn chủ đề giống nút Quản lý Tài khoản */
 .category-filter-btn {
-    background: linear-gradient(90deg, #4299e1 0%, #48bb78 100%) !important;
-    color: #fff !important;
-    border-radius: 14px;
-    font-weight: 700;
-    border: none;
-    box-shadow: 0 2px 8px rgba(66,153,225,0.08);
-    transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
-    outline: none;
-    min-width: 170px;
+    min-width: 200px;
+    min-height: 48px;
+    font-size: 1.15rem;
+    padding: 14px 28px;
+    border-radius: 18px;
 }
-
 .category-filter-btn i {
-    font-size: 1.1em;
+    font-size: 1.3em;
 }
 
 .category-filter-btn:hover, .category-filter-btn.active {
