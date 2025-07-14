@@ -2487,3 +2487,12 @@ label {
 .component-modal-content::-webkit-scrollbar-thumb:hover, .form-layout::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #3182ce 0%, #63b3ed 100%);
 } 
+
+.btn,
+.component-modal-footer .btn,
+.modal-footer .btn,
+.form-actions .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
