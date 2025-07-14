@@ -131,9 +131,8 @@ class LoginSystem {
     }
 }
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWKWkD3qiPxmsJ9Z8TUfonC_SMxyJIMef1PkwYQAPU5co6fglt2DtPDAG0b2JOwsnhIg/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnE3S65QxiZcUOP2fCtSZaBGJ47yncjrEuRILQNJSQxYYA5x2UHHosNZ8OO46jx_lk/exec'; // Dán link vừa copy ở trên
 
-// Hàm đăng ký tài khoản
 function register(username, password) {
   fetch(`${SCRIPT_URL}?action=register`, {
     method: 'POST',
@@ -146,6 +145,23 @@ function register(username, password) {
       alert('Đăng ký thành công!');
     } else {
       alert('Lỗi: ' + data.message);
+    }
+  })
+  .catch(err => alert('Lỗi kết nối: ' + err));
+}
+
+function login(username, password) {
+  fetch(`${SCRIPT_URL}?action=login`, {
+    method: 'POST',
+    body: JSON.stringify({ username, password }),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert('Đăng nhập thành công!');
+    } else {
+      alert('Sai tài khoản hoặc mật khẩu!');
     }
   })
   .catch(err => alert('Lỗi kết nối: ' + err));
