@@ -131,59 +131,38 @@ class LoginSystem {
     }
 }
 
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyr4QTo47fccBB53ofWWAjJuFsFbn_Fbs6Knjvf-7tBa2McGj_eQ3ZzMEvP1C1nqUMZ/exec'; // Dán link vừa copy ở trên
+const firebaseConfig = {
+  apiKey: "AIzaSyCKW3VB9x2zS0dg7EnCxipFAg9uysY8BaI",
+  authDomain: "linh-kien-a2c13.firebaseapp.com",
+  projectId: "linh-kien-a2c13",
+  storageBucket: "linh-kien-a2c13.firebasestorage.app",
+  messagingSenderId: "876681669499",
+  appId: "1:876681669499:web:94d466cb0c7d8752caabde",
+  measurementId: "G-V4Y7LZSKCM"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-function register(username, password) {
-    fetch('https://script.google.com/macros/s/AKfycbzYDVulAJ4qyGNRQqiOy0WvD9ud3XAGMXfVxyvadLeK4dhW9GkI2-zF0Eq4_lUupUmT/exec?action=register', {
-        method: 'POST',
-        body: JSON.stringify({ username, password }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
+// Hàm đăng ký tài khoản
+function register(email, password) {
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(userCredential => {
       alert('Đăng ký thành công!');
-    } else {
-      alert('Lỗi: ' + data.message);
-    }
-  })
-  .catch(err => alert('Lỗi kết nối: ' + err));
-}
-
-function login(username, password) {
-  fetch(`${SCRIPT_URL}?action=login`, {
-    method: 'POST',
-    body: JSON.stringify({ username, password }),
-    headers: { 'Content-Type': 'application/json' }
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert('Đăng nhập thành công!');
-    } else {
-      alert('Sai tài khoản hoặc mật khẩu!');
-    }
-  })
-  .catch(err => alert('Lỗi kết nối: ' + err));
+    })
+    .catch(error => {
+      alert(error.message);
+    });
 }
 
 // Hàm đăng nhập
-function login(username, password) {
-  fetch(`${SCRIPT_URL}?action=login`, {
-    method: 'POST',
-    body: JSON.stringify({ username, password }),
-    headers: { 'Content-Type': 'application/json' }
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
+function login(email, password) {
+  auth.signInWithEmailAndPassword(email, password)
+    .then(userCredential => {
       alert('Đăng nhập thành công!');
-      // Thực hiện chuyển trang hoặc lưu trạng thái đăng nhập tại đây nếu muốn
-    } else {
+    })
+    .catch(error => {
       alert('Sai tài khoản hoặc mật khẩu!');
-    }
-  })
-  .catch(err => alert('Lỗi kết nối: ' + err));
+    });
 }
 
 // Gắn sự kiện submit cho form đăng ký
@@ -191,9 +170,9 @@ const registerForm = document.getElementById('registerForm');
 if (registerForm) {
   registerForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const username = document.getElementById('regUsername').value;
+    const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
-    register(username, password);
+    register(email, password);
   });
 }
 
@@ -202,9 +181,9 @@ const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const username = document.getElementById('loginUsername').value;
+    const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
-    login(username, password);
+    login(email, password);
   });
 }
 
