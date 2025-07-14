@@ -2496,3 +2496,31 @@ label {
     align-items: center;
     justify-content: center;
 }
+
+#selectAllCategories {
+    background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(72,187,120,0.10);
+    transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+#selectAllCategories:hover {
+    background: linear-gradient(90deg, #38a169 0%, #48bb78 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 6px 18px rgba(56,161,105,0.18);
+}
+#selectAllCategories:focus {
+    outline: 2px solid #38a169;
+    outline-offset: 2px;
+}
