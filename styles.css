@@ -1213,6 +1213,9 @@ body, .container {
 
 /* Nút chọn chủ đề giống nút Quản lý Tài khoản */
 .category-filter-btn {
+    background: linear-gradient(90deg, #4299e1 0%, #48bb78 100%) !important;
+    color: #fff !important;
+    border: none !important;
     min-width: 220px;
     min-height: 56px;
     font-size: 1.18rem;
@@ -1222,21 +1225,17 @@ body, .container {
     display: inline-flex;
     align-items: center;
     gap: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+    transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
 }
 .category-filter-btn i {
     font-size: 1.35em;
 }
-
-.category-filter-btn:hover, .category-filter-btn.active {
+.category-filter-btn:hover, .category-filter-btn:focus {
     background: linear-gradient(90deg, #4299e1 0%, #48bb78 100%) !important;
-    color: #fff !important;
-    transform: translateY(-2px) scale(1.03);
-    box-shadow: 0 8px 24px rgba(49,151,149,0.16);
-}
-
-.category-filter-btn:focus {
-    outline: 2px solid #38b2ac;
-    outline-offset: 2px;
+    filter: brightness(1.08);
+    box-shadow: 0 8px 24px rgba(66,153,225,0.18);
+    outline: none;
 }
 
 /* Dropdown chọn chủ đề gọn, đẹp, hiện đại */
