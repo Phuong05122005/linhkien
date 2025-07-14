@@ -1213,14 +1213,18 @@ body, .container {
 
 /* Nút chọn chủ đề giống nút Quản lý Tài khoản */
 .category-filter-btn {
-    min-width: 200px;
-    min-height: 48px;
-    font-size: 1.15rem;
-    padding: 14px 28px;
-    border-radius: 18px;
+    min-width: 220px;
+    min-height: 56px;
+    font-size: 1.18rem;
+    padding: 16px 36px;
+    border-radius: 16px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
 }
 .category-filter-btn i {
-    font-size: 1.3em;
+    font-size: 1.35em;
 }
 
 .category-filter-btn:hover, .category-filter-btn.active {
