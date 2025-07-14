@@ -13,29 +13,35 @@ class LoginSystem {
         const loginForm = document.getElementById('loginForm');
         loginForm.innerHTML = '';
         if (!this.uniqueUser) {
-            // Hiển thị form tạo tài khoản
+            // Hiển thị form tạo tài khoản + nút Đăng nhập
             loginForm.innerHTML = `
-                <div class="form-group">
-                    <div class="input-icon">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="newUsername" placeholder="Tên đăng nhập" required>
+                <div id="registerSection">
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="newUsername" placeholder="Tên đăng nhập" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="newPassword" placeholder="Mật khẩu" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <i class="fas fa-id-card"></i>
+                            <input type="text" id="newDisplayName" placeholder="Tên hiển thị" required>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" class="login-btn" id="createAccountBtn" style="flex:1;">Tạo tài khoản</button>
+                        <button type="button" class="login-btn" id="showLoginBtn" style="flex:1; background: #fff; color: #4a4a4a; border: 1px solid #bbb;">Đăng nhập</button>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="input-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="newPassword" placeholder="Mật khẩu" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="input-icon">
-                        <i class="fas fa-id-card"></i>
-                        <input type="text" id="newDisplayName" placeholder="Tên hiển thị" required>
-                    </div>
-                </div>
-                <button type="button" class="login-btn" id="createAccountBtn">Tạo tài khoản</button>
             `;
             document.getElementById('createAccountBtn').addEventListener('click', () => this.handleCreateAccount());
+            document.getElementById('showLoginBtn').addEventListener('click', () => this.renderLoginFormForExisting());
         } else {
             // Đã có tài khoản, chỉ hiển thị form đăng nhập (không cho tạo lại)
             loginForm.innerHTML = `
@@ -54,6 +60,50 @@ class LoginSystem {
                 <button type="button" class="login-btn" id="loginBtn">Đăng nhập</button>
             `;
             document.getElementById('loginBtn').addEventListener('click', () => this.handleLogin());
+        }
+    }
+
+    renderLoginFormForExisting() {
+        const loginForm = document.getElementById('loginForm');
+        loginForm.innerHTML = `
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Tên đăng nhập" required autofocus>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Mật khẩu" required>
+                </div>
+            </div>
+            <button type="button" class="login-btn" id="loginBtn">Đăng nhập</button>
+            <button type="button" class="login-btn" id="backToRegisterBtn" style="background: #fff; color: #4a4a4a; border: 1px solid #bbb; margin-top: 8px;">Quay lại tạo tài khoản</button>
+        `;
+        document.getElementById('loginBtn').addEventListener('click', () => this.handleLoginForExisting());
+        document.getElementById('backToRegisterBtn').addEventListener('click', () => this.renderForm());
+    }
+
+    handleLoginForExisting() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        // Kiểm tra trong localStorage (uniqueUser)
+        const user = JSON.parse(localStorage.getItem('uniqueUser'));
+        if (!user) {
+            this.showMessage('Không tìm thấy tài khoản trên máy này. Vui lòng tạo tài khoản mới!', 'error');
+            return;
+        }
+        if (username === user.username && password === user.password) {
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', user.displayName);
+            localStorage.setItem('userRoles', JSON.stringify(['admin']));
+            this.showMessage('Đăng nhập thành công! Đang chuyển hướng...', 'success');
+            setTimeout(() => {
+                window.location.href = 'app.html';
+            }, 1000);
+        } else {
+            this.showMessage('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
         }
     }
 
