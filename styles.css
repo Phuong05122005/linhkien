@@ -2522,3 +2522,8 @@ label {
     outline: 2px solid #38a169;
     outline-offset: 2px;
 }
+
+.category-filter-btn {
+    color: #23272fcc !important; /* Đen nhạt, độ trong suốt vừa phải */
+    /* ...các thuộc tính khác giữ nguyên... */
+}
