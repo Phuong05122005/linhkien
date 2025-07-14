@@ -134,11 +134,11 @@ class LoginSystem {
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyr4QTo47fccBB53ofWWAjJuFsFbn_Fbs6Knjvf-7tBa2McGj_eQ3ZzMEvP1C1nqUMZ/exec'; // Dán link vừa copy ở trên
 
 function register(username, password) {
-  fetch(`${SCRIPT_URL}?action=register`, {
-    method: 'POST',
-    body: JSON.stringify({ username, password }),
-    headers: { 'Content-Type': 'application/json' }
-  })
+    fetch('https://script.google.com/macros/s/AKfycbzYDVulAJ4qyGNRQqiOy0WvD9ud3XAGMXfVxyvadLeK4dhW9GkI2-zF0Eq4_lUupUmT/exec?action=register', {
+        method: 'POST',
+        body: JSON.stringify({ username, password }),
+        headers: { 'Content-Type': 'application/json' }
+      })
   .then(res => res.json())
   .then(data => {
     if (data.success) {
