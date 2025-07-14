@@ -1687,6 +1687,7 @@ class ComponentManager {
             modal.style.zIndex = '9999';
             document.body.appendChild(modal);
         }
+        const userJson = JSON.stringify(user);
         modal.innerHTML = `
             <div style="background: #fff; border-radius: 16px; padding: 32px 28px; min-width: 320px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,0.18); text-align: center;">
                 <h2 style='color: #38a169; margin-bottom: 12px;'>Tạo tài khoản thành công!</h2>
@@ -1698,7 +1699,12 @@ class ComponentManager {
                 </div>
                 <button id='copyUserInfoBtn' style='margin: 0 8px 0 0; padding: 8px 18px; border-radius: 8px; border: none; background: #4299e1; color: #fff; font-weight: 600; cursor: pointer;'>Sao chép thông tin</button>
                 <button id='exportUserInfoBtn' style='margin: 0 8px 0 0; padding: 8px 18px; border-radius: 8px; border: none; background: #38a169; color: #fff; font-weight: 600; cursor: pointer;'>Xuất file tài khoản</button>
+                <button id='copyUserJsonBtn' style='margin: 0 8px 0 0; padding: 8px 18px; border-radius: 8px; border: none; background: #805ad5; color: #fff; font-weight: 600; cursor: pointer;'>Tạo mã nhập nhanh</button>
                 <button id='closeUserInfoBtn' style='padding: 8px 18px; border-radius: 8px; border: none; background: #e53e3e; color: #fff; font-weight: 600; cursor: pointer;'>Đóng</button>
+                <div style='margin-top: 18px; font-size: 0.95em; color: #666;'>
+                    <b>Mã nhập nhanh:</b><br>
+                    <textarea id='userJsonArea' style='width: 90%; min-height: 40px; margin-top: 6px; font-size: 0.95em;'>${userJson}</textarea>
+                </div>
             </div>
         `;
         document.getElementById('copyUserInfoBtn').onclick = () => {
@@ -1716,6 +1722,12 @@ class ComponentManager {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+        };
+        document.getElementById('copyUserJsonBtn').onclick = () => {
+            const text = document.getElementById('userJsonArea').value;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Đã sao chép mã nhập nhanh!');
+            });
         };
         document.getElementById('closeUserInfoBtn').onclick = () => {
             modal.remove();
