@@ -1665,8 +1665,61 @@ class ComponentManager {
         };
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
-        this.showMessage('Tài khoản đã được tạo thành công!', 'success');
+        this.showUserCreatedInfo(newUser);
         this.loadUsers();
+    }
+
+    showUserCreatedInfo(user) {
+        // Tạo modal hoặc thông báo nổi bật
+        let modal = document.getElementById('userCreatedModal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'userCreatedModal';
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100vw';
+            modal.style.height = '100vh';
+            modal.style.background = 'rgba(0,0,0,0.35)';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '9999';
+            document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+            <div style="background: #fff; border-radius: 16px; padding: 32px 28px; min-width: 320px; max-width: 90vw; box-shadow: 0 8px 32px rgba(0,0,0,0.18); text-align: center;">
+                <h2 style='color: #38a169; margin-bottom: 12px;'>Tạo tài khoản thành công!</h2>
+                <div style='margin-bottom: 18px;'>
+                    <strong>Tên đăng nhập:</strong> <span id='copyUsername' style='user-select:all;'>${user.username}</span><br>
+                    <strong>Mật khẩu:</strong> <span id='copyPassword' style='user-select:all;'>${user.password}</span><br>
+                    <strong>Tên hiển thị:</strong> ${user.displayName}<br>
+                    <strong>Vai trò:</strong> ${(user.roles||[]).join(', ')}
+                </div>
+                <button id='copyUserInfoBtn' style='margin: 0 8px 0 0; padding: 8px 18px; border-radius: 8px; border: none; background: #4299e1; color: #fff; font-weight: 600; cursor: pointer;'>Sao chép thông tin</button>
+                <button id='exportUserInfoBtn' style='margin: 0 8px 0 0; padding: 8px 18px; border-radius: 8px; border: none; background: #38a169; color: #fff; font-weight: 600; cursor: pointer;'>Xuất file tài khoản</button>
+                <button id='closeUserInfoBtn' style='padding: 8px 18px; border-radius: 8px; border: none; background: #e53e3e; color: #fff; font-weight: 600; cursor: pointer;'>Đóng</button>
+            </div>
+        `;
+        document.getElementById('copyUserInfoBtn').onclick = () => {
+            const text = `Tên đăng nhập: ${user.username}\nMật khẩu: ${user.password}\nTên hiển thị: ${user.displayName}\nVai trò: ${(user.roles||[]).join(', ')}`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Đã sao chép thông tin tài khoản!');
+            });
+        };
+        document.getElementById('exportUserInfoBtn').onclick = () => {
+            const text = `Tên đăng nhập: ${user.username}\nMật khẩu: ${user.password}\nTên hiển thị: ${user.displayName}\nVai trò: ${(user.roles||[]).join(', ')}`;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `tai_khoan_${user.username}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+        document.getElementById('closeUserInfoBtn').onclick = () => {
+            modal.remove();
+        };
     }
 
     updateUser(userData) {
