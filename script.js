@@ -1653,22 +1653,18 @@ class ComponentManager {
     }
 
     addUser(userData) {
-        const users = JSON.parse(localStorage.getItem('users')) || this.getDefaultUsers();
-        
+        let users = JSON.parse(localStorage.getItem('users')) || this.getDefaultUsers();
         // Kiểm tra username đã tồn tại
         if (users.find(u => u.username === userData.username)) {
             this.showMessage('Tên đăng nhập đã tồn tại!', 'error');
             return;
         }
-
         const newUser = {
             ...userData,
             createdAt: new Date().toISOString()
         };
-
         users.push(newUser);
         localStorage.setItem('users', JSON.stringify(users));
-        
         this.showMessage('Tài khoản đã được tạo thành công!', 'success');
         this.loadUsers();
     }
