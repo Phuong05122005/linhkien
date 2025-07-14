@@ -37,7 +37,7 @@ class LoginSystem {
             `;
             document.getElementById('createAccountBtn').addEventListener('click', () => this.handleCreateAccount());
         } else {
-            // Hiển thị form đăng nhập (chỉ nhập mật khẩu)
+            // Đã có tài khoản, chỉ hiển thị form đăng nhập (không cho tạo lại)
             loginForm.innerHTML = `
                 <div class="form-group">
                     <div class="input-icon">
@@ -48,7 +48,7 @@ class LoginSystem {
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="fas fa-lock"></i>
-                        <input type="password" id="password" placeholder="Mật khẩu" required>
+                        <input type="password" id="password" placeholder="Mật khẩu" required autofocus>
                     </div>
                 </div>
                 <button type="button" class="login-btn" id="loginBtn">Đăng nhập</button>
