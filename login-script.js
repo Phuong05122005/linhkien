@@ -131,49 +131,15 @@ class LoginSystem {
     }
 }
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCKW3VB9x2zS0dg7EnCxipFAg9uysY8BaI",
-  authDomain: "linh-kien-a2c13.firebaseapp.com",
-  projectId: "linh-kien-a2c13",
-  storageBucket: "linh-kien-a2c13.firebasestorage.app",
-  messagingSenderId: "876681669499",
-  appId: "1:876681669499:web:94d466cb0c7d8752caabde",
-  measurementId: "G-V4Y7LZSKCM"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-// Hàm đăng ký tài khoản
-function register(email, password) {
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(userCredential => {
-      alert('Đăng ký thành công!');
-    })
-    .catch(error => {
-      alert(error.message);
-    });
-}
-
-// Hàm đăng nhập
-function login(email, password) {
-  auth.signInWithEmailAndPassword(email, password)
-    .then(userCredential => {
-      alert('Đăng nhập thành công!');
-    })
-    .catch(error => {
-      alert('Sai tài khoản hoặc mật khẩu!');
-    });
-}
-
-// Gắn sự kiện submit cho form đăng ký
-const registerForm = document.getElementById('registerForm');
-if (registerForm) {
-  registerForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const email = document.getElementById('regEmail').value;
-    const password = document.getElementById('regPassword').value;
-    register(email, password);
-  });
+// Hàm đăng nhập bằng username/password, lưu trên localStorage
+function login(username, password) {
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+  if (users.find(u => u.username === username && u.password === password)) {
+    alert('Đăng nhập thành công!');
+    // Có thể chuyển trang hoặc lưu trạng thái đăng nhập ở đây nếu muốn
+  } else {
+    alert('Sai tài khoản hoặc mật khẩu!');
+  }
 }
 
 // Gắn sự kiện submit cho form đăng nhập
@@ -181,10 +147,22 @@ const loginForm = document.getElementById('loginForm');
 if (loginForm) {
   loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    login(email, password);
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    login(username, password);
   });
+}
+
+// Hàm đăng ký tài khoản (nếu bạn muốn dùng, có thể thêm form đăng ký tương tự)
+function register(username, password) {
+  let users = JSON.parse(localStorage.getItem('users') || '[]');
+  if (users.find(u => u.username === username)) {
+    alert('Tài khoản đã tồn tại!');
+    return;
+  }
+  users.push({ username, password });
+  localStorage.setItem('users', JSON.stringify(users));
+  alert('Đăng ký thành công!');
 }
 
 // Khởi tạo hệ thống đăng nhập nhiều tài khoản
