@@ -398,8 +398,7 @@ body, .container {
 /* Components Grid */
 .components-grid {
     display: grid;
-    grid-template-rows: 1fr;
-    grid-auto-flow: column;
+    grid-template-columns: repeat(5, minmax(220px, 1fr));
     gap: 16px;
     margin-top: 24px;
     justify-items: start;
@@ -407,6 +406,8 @@ body, .container {
     overflow-x: auto;
     padding-bottom: 8px;
     min-height: 420px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
 }
 
 @media (max-width: 768px) {
@@ -546,6 +547,7 @@ body, .container {
     align-items: center;
     transition: all 0.3s ease;
     overflow: hidden;
+    scroll-snap-align: start;
 }
 
 .component-card .component-name {
