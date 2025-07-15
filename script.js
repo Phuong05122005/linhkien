@@ -658,7 +658,7 @@ class ComponentManager {
         switch (status) {
             case 'pending':
                 document.getElementById('pendingTab').classList.add('active');
-                document.getElementById('componentsGrid').style.display = 'none';
+                document.getElementById('componentsGrid').style.display = 'block'; // Hiển thị danh sách linh kiện chưa kiểm tra
                 break;
             case 'checked':
                 document.getElementById('checkedTab').classList.add('active');
