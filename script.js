@@ -253,6 +253,11 @@ class ComponentManager {
             accountManagerBtn.addEventListener('click', () => this.openAccountManagerModal());
             closeAccountManagerModal.addEventListener('click', () => accountManagerModal.style.display = 'none');
         }
+
+        // Sự kiện thêm chủ đề
+        if (addCategoryBtn) {
+            addCategoryBtn.addEventListener('click', () => this.addCategory());
+        }
     }
 
     openModal(component = null) {
