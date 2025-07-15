@@ -2375,7 +2375,7 @@ label {
   }
 }
 @media (max-width: 600px) {
-  .modal-content {
+    .modal-content {
     max-width: 98vw;
     min-width: 0;
     padding: 0;
@@ -2440,7 +2440,7 @@ label {
 /* Modal Thêm linh kiện: vùng nội dung cuộn, footer cố định, thanh cuộn rõ */
 .component-modal {
   display: flex;
-  flex-direction: column;
+        flex-direction: column;
   height: 90vh;
   max-height: 90vh;
   min-height: 400px;
@@ -2533,9 +2533,13 @@ label {
   display: none;
   position: fixed;
   z-index: 1000;
-  left: 0 top: 0; width: 100vw; height: 100vh;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(30, 41, 59, 0.35);
-  align-items: center; justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Modal content */
@@ -2565,7 +2569,7 @@ label {
 .modal-header .close {
   font-size: 1.8rem;
   background: #fff2;
-  border-radius: 50%;
+    border-radius: 50%;
   width: 38px; height: 38px;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
@@ -2647,7 +2651,7 @@ label {
   background: #e2e8f0;
   color: #64748b;
   font-size: 0.97em;
-  border-radius: 8px;
+    border-radius: 8px;
   padding: 3px 12px;
   margin-left: 10px;
 }
@@ -2664,7 +2668,7 @@ label {
   align-items: center;
   gap: 6px;
   transition: background 0.2s, color 0.2s;
-  font-weight: 500;
+    font-weight: 500;
 }
 .topic-delete-btn:hover {
   background: #fee2e2;
@@ -2680,3 +2684,46 @@ label {
   .modal-content, .modal-header, .modal-body { padding-left: 10px; padding-right: 10px; }
   .modal-header h2 { font-size: 1.2rem; }
 }
+
+/* Footer layout cho modal form */
+.component-modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 20px;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .component-modal-footer {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .footer-left, .footer-right {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .footer-right {
+        gap: 8px;
+    }
+} 

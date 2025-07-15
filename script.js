@@ -8,6 +8,7 @@ class ComponentManager {
         this.currentEditId = null;
         this.currentDeleteId = null;
         this.currentStatusTab = 'pending'; // Tab hiện tại: pending, checked, all
+        this.tempFormData = null; // Dữ liệu form tạm thời
         this.init();
     }
 
@@ -20,6 +21,7 @@ class ComponentManager {
         this.updateUserDisplay();
         this.loadSampleData();
         this.checkUserRoles();
+        this.setupFormAutoSave(); // Thiết lập tự động lưu form
         
         // Ẩn bảng linh kiện mặc định vì tab mặc định là 'pending'
         document.getElementById('componentsGrid').style.display = 'none';
@@ -200,6 +202,10 @@ class ComponentManager {
         generateAllPasswordsCloseBtn.addEventListener('click', () => this.closeGenerateAllPasswordsModal());
         passwordResultsCloseBtn.addEventListener('click', () => this.closePasswordResultsModal());
 
+        // Clear temp data button
+        const clearTempDataBtn = document.getElementById('clearTempDataBtn');
+        clearTempDataBtn.addEventListener('click', () => this.clearTempFormDataAndReset());
+
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === modal) this.closeModal();
@@ -276,6 +282,14 @@ class ComponentManager {
             modalTitle.textContent = 'Thêm Linh kiện Mới';
             this.resetForm();
             this.updateComponentInfo();
+            
+            // Thử khôi phục dữ liệu tạm thời nếu có
+            if (this.loadTempFormData()) {
+                this.showTempDataRestoredMessage();
+            }
+            
+            // Cập nhật trạng thái nút xóa dữ liệu tạm thời
+            this.updateClearTempDataButton();
         }
 
         modal.style.display = 'block';
@@ -399,6 +413,7 @@ class ComponentManager {
         form.reset();
         this.resetImageUpload();
         this.currentImageData = null;
+        this.clearTempFormData(); // Xóa dữ liệu tạm thời khi reset form
     }
 
     updateComponentInfo() {
@@ -514,6 +529,8 @@ class ComponentManager {
             this.updateComponent(this.currentEditId, formData);
         } else {
             this.addComponent(formData);
+            // Xóa dữ liệu tạm thời khi lưu thành công
+            this.clearTempFormData();
         }
 
         this.closeModal();
@@ -1946,6 +1963,148 @@ class ComponentManager {
             </tr>`;
         }).join('');
         modal.style.display = 'block';
+    }
+
+    // ===== CÁC PHƯƠNG THỨC LƯU VÀ KHÔI PHỤC DỮ LIỆU FORM =====
+
+    setupFormAutoSave() {
+        // Thiết lập tự động lưu dữ liệu form khi người dùng nhập
+        const formFields = [
+            'componentName', 'componentCategory', 'componentQuantity', 
+            'componentPriority', 'componentPreparer', 'componentInspector', 
+            'componentDescription', 'componentLocation'
+        ];
+
+        formFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('input', () => this.saveTempFormData());
+                field.addEventListener('change', () => this.saveTempFormData());
+            }
+        });
+
+        // Lưu dữ liệu khi người dùng thay đổi ảnh
+        this.setupImageAutoSave();
+    }
+
+    setupImageAutoSave() {
+        // Lưu dữ liệu ảnh khi có thay đổi
+        const imageInput = document.getElementById('componentImage');
+        if (imageInput) {
+            imageInput.addEventListener('change', () => {
+                setTimeout(() => this.saveTempFormData(), 100); // Delay để đảm bảo ảnh đã được xử lý
+            });
+        }
+    }
+
+    saveTempFormData() {
+        // Chỉ lưu khi không phải đang edit (tức là đang thêm mới)
+        if (this.currentEditId) return;
+
+        const formData = {
+            name: document.getElementById('componentName').value.trim(),
+            category: document.getElementById('componentCategory').value,
+            quantity: document.getElementById('componentQuantity').value,
+            priority: document.getElementById('componentPriority').value,
+            preparer: document.getElementById('componentPreparer').value.trim(),
+            inspector: document.getElementById('componentInspector').value.trim(),
+            description: document.getElementById('componentDescription').value.trim(),
+            location: document.getElementById('componentLocation').value.trim(),
+            image: this.currentImageData || null,
+            timestamp: new Date().toISOString()
+        };
+
+        // Chỉ lưu nếu có ít nhất một trường có dữ liệu
+        const hasData = Object.values(formData).some(value => 
+            value && value !== '' && value !== null && value !== undefined
+        );
+
+        if (hasData) {
+            localStorage.setItem('tempFormData', JSON.stringify(formData));
+        } else {
+            this.clearTempFormData();
+        }
+        
+        this.updateClearTempDataButton();
+    }
+
+    loadTempFormData() {
+        const savedData = localStorage.getItem('tempFormData');
+        if (savedData) {
+            try {
+                const formData = JSON.parse(savedData);
+                
+                // Kiểm tra xem dữ liệu có quá cũ không (quá 24 giờ)
+                const savedTime = new Date(formData.timestamp);
+                const now = new Date();
+                const hoursDiff = (now - savedTime) / (1000 * 60 * 60);
+                
+                if (hoursDiff > 24) {
+                    this.clearTempFormData();
+                    return false;
+                }
+
+                // Điền dữ liệu vào form
+                if (formData.name) document.getElementById('componentName').value = formData.name;
+                if (formData.category) document.getElementById('componentCategory').value = formData.category;
+                if (formData.quantity) document.getElementById('componentQuantity').value = formData.quantity;
+                if (formData.priority) document.getElementById('componentPriority').value = formData.priority;
+                if (formData.preparer) document.getElementById('componentPreparer').value = formData.preparer;
+                if (formData.inspector) document.getElementById('componentInspector').value = formData.inspector;
+                if (formData.description) document.getElementById('componentDescription').value = formData.description;
+                if (formData.location) document.getElementById('componentLocation').value = formData.location;
+
+                // Khôi phục ảnh nếu có
+                if (formData.image) {
+                    this.currentImageData = formData.image;
+                    const imagePreview = document.getElementById('imagePreview');
+                    const uploadPlaceholder = document.getElementById('uploadPlaceholder');
+                    const imageControls = document.getElementById('imageControls');
+                    
+                    imagePreview.src = formData.image;
+                    imagePreview.style.display = 'block';
+                    uploadPlaceholder.style.display = 'none';
+                    imageControls.style.display = 'flex';
+                }
+
+                return true;
+            } catch (error) {
+                console.error('Lỗi khi khôi phục dữ liệu form:', error);
+                this.clearTempFormData();
+                return false;
+            }
+        }
+        return false;
+    }
+
+    clearTempFormData() {
+        localStorage.removeItem('tempFormData');
+        this.updateClearTempDataButton();
+    }
+
+    showTempDataRestoredMessage() {
+        this.showMessage('Đã khôi phục dữ liệu bạn đã nhập trước đó!', 'info');
+    }
+
+    clearTempFormDataAndReset() {
+        this.clearTempFormData();
+        this.resetForm();
+        this.updateComponentInfo();
+        this.showMessage('Đã xóa dữ liệu tạm thời!', 'success');
+        this.updateClearTempDataButton();
+    }
+
+    updateClearTempDataButton() {
+        const clearTempDataBtn = document.getElementById('clearTempDataBtn');
+        const hasTempData = localStorage.getItem('tempFormData');
+        
+        if (clearTempDataBtn) {
+            if (hasTempData && !this.currentEditId) {
+                clearTempDataBtn.style.display = 'inline-flex';
+            } else {
+                clearTempDataBtn.style.display = 'none';
+            }
+        }
     }
 }
 
