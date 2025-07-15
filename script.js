@@ -659,14 +659,17 @@ class ComponentManager {
             case 'pending':
                 document.getElementById('pendingTab').classList.add('active');
                 document.getElementById('componentsGrid').style.display = 'block'; // Hiển thị danh sách linh kiện chưa kiểm tra
+                this.showPendingComponentsList();
                 break;
             case 'checked':
                 document.getElementById('checkedTab').classList.add('active');
                 document.getElementById('componentsGrid').style.display = 'none';
+                document.getElementById('pendingComponentsList').innerHTML = '';
                 break;
             case 'all':
                 document.getElementById('allTab').classList.add('active');
                 document.getElementById('componentsGrid').style.display = 'block';
+                document.getElementById('pendingComponentsList').innerHTML = '';
                 break;
         }
         
@@ -2105,6 +2108,22 @@ class ComponentManager {
                 clearTempDataBtn.style.display = 'none';
             }
         }
+    }
+
+    // Hiển thị danh sách linh kiện chờ kiểm tra dưới tab
+    showPendingComponentsList() {
+        const container = document.getElementById('pendingComponentsList');
+        if (!container) return;
+        const pendingList = this.components.filter(c => c.status === 'pending' || !c.status);
+        if (pendingList.length === 0) {
+            container.innerHTML = '<div class="pending-empty">Không có linh kiện nào đang chờ kiểm tra.</div>';
+            return;
+        }
+        container.innerHTML = pendingList.map(c => `
+            <div class="pending-item">
+                <strong>${this.escapeHtml(c.name)}</strong> | Chủ đề: ${this.escapeHtml(c.category)} | Số lượng: ${c.quantity}
+            </div>
+        `).join('');
     }
 }
 
