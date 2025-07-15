@@ -571,10 +571,10 @@ body, .container {
 }
 
 .component-image {
-    width: 212px;
-    height: 100px;
+    width: 100px;
+    height: 70px;
     border-radius: 10px;
-    margin: 0 auto 10px auto;
+    margin: 0 auto 8px auto;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s ease;
