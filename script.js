@@ -793,7 +793,7 @@ class ComponentManager {
                 
                 <div class="component-actions">
                     ${status === 'pending' && canCheck ? `
-                    <button class="btn-check" onclick="app.checkComponent('${component.id}')" ${currentUser === component.inspector ? '' : 'disabled'}>
+                    <button class="btn-check" onclick="app.checkComponent('${component.id}')" ${(userRoles.includes('admin') || currentUser === component.inspector) ? '' : 'disabled'}>
                         <i class="fas fa-check"></i> Kiểm tra
                     </button>
                     ` : ''}
