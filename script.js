@@ -658,18 +658,15 @@ class ComponentManager {
         switch (status) {
             case 'pending':
                 document.getElementById('pendingTab').classList.add('active');
-                document.getElementById('componentsGrid').style.display = 'block'; // Hiển thị danh sách linh kiện chưa kiểm tra
-                this.showPendingComponentsList();
+                document.getElementById('componentsGrid').style.display = 'block';
                 break;
             case 'checked':
                 document.getElementById('checkedTab').classList.add('active');
                 document.getElementById('componentsGrid').style.display = 'none';
-                document.getElementById('pendingComponentsList').innerHTML = '';
                 break;
             case 'all':
                 document.getElementById('allTab').classList.add('active');
                 document.getElementById('componentsGrid').style.display = 'block';
-                document.getElementById('pendingComponentsList').innerHTML = '';
                 break;
         }
         
