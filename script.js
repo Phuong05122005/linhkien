@@ -1309,24 +1309,18 @@ class ComponentManager {
         categoriesList.innerHTML = '';
 
         this.categories.forEach(category => {
-            const categoryItem = document.createElement('div');
-            categoryItem.className = 'category-item';
-            
             // Đếm số linh kiện trong chủ đề này
             const componentCount = this.components.filter(comp => comp.category === category).length;
-            
+            // Tạo phần tử chủ đề với style mới
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'topic-card';
             categoryItem.innerHTML = `
-                <div class="category-name">
-                    ${this.escapeHtml(category)}
-                    <span class="category-count">${componentCount} linh kiện</span>
-                </div>
-                <div class="category-actions">
-                    <button class="btn-delete-category" onclick="app.deleteCategory('${this.escapeHtml(category)}')">
-                        <i class="fas fa-trash"></i> Xóa
-                    </button>
-                </div>
+                <span>${this.escapeHtml(category)}</span>
+                <span class="topic-badge">${componentCount} linh kiện</span>
+                <button class="topic-delete-btn" onclick="app.deleteCategory('${this.escapeHtml(category)}')">
+                    <i class="fas fa-trash"></i> Xóa
+                </button>
             `;
-            
             categoriesList.appendChild(categoryItem);
         });
     }
