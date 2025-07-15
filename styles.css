@@ -608,15 +608,22 @@ body, .container {
 /* Component info improvements */
 .component-info {
     flex: 1;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.45);
+    box-shadow: 0 2px 12px rgba(66,153,225,0.06);
+    padding: 18px 18px 10px 18px;
 }
 
 .info-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #f8f9fa;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaf6ff;
+    background: rgba(234,246,255,0.25);
+    border-radius: 8px;
+    margin-bottom: 2px;
 }
 
 .info-row:last-child {
@@ -624,28 +631,42 @@ body, .container {
 }
 
 .info-label {
-    font-size: 0.85rem;
-    color: #a0aec0;
-    font-weight: 500;
+    font-size: 1rem;
+    color: #4299e1;
+    font-weight: 700;
+    text-align: left;
+    flex: 1;
 }
 
 .info-value {
-    font-size: 0.85rem;
-    color: #e2e8f0;
+    font-size: 1rem;
+    color: #23272f;
     font-weight: 600;
     text-align: right;
+    flex: 1;
 }
 
 .quantity-badge {
-    background: linear-gradient(45deg, #4CAF50, #45a049);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    min-width: 30px;
+    background: linear-gradient(90deg, #38e38a 0%, #4299e1 100%);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    min-width: 40px;
     text-align: center;
     display: inline-block;
+    box-shadow: 0 2px 8px rgba(66,153,225,0.13);
+    letter-spacing: 1px;
+}
+
+.component-actions .btn {
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(66,153,225,0.10);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 /* Component description */
