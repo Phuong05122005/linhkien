@@ -1095,14 +1095,15 @@ class ComponentManager {
         if (!component) return;
 
         const currentUser = localStorage.getItem('currentUser');
+        const userRoles = JSON.parse(localStorage.getItem('userRoles') || '[]');
         if (!currentUser) {
             this.showMessage('Vui lòng đăng nhập để kiểm tra linh kiện!', 'error');
             return;
         }
 
-        // Kiểm tra xem người dùng hiện tại có phải là người kiểm tra không
-        if (component.inspector !== currentUser) {
-            this.showMessage('Chỉ người kiểm tra được chỉ định mới có thể kiểm tra linh kiện này!', 'error');
+        // Cho phép admin kiểm tra mọi linh kiện
+        if (!userRoles.includes('admin') && component.inspector !== currentUser) {
+            this.showMessage('Chỉ người kiểm tra được chỉ định hoặc admin mới có thể kiểm tra linh kiện này!', 'error');
             return;
         }
 
