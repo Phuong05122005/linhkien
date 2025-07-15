@@ -401,7 +401,7 @@ body, .container {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 16px;
     margin-top: 24px;
-    justify-items: center;
+    justify-items: start;
 }
 
 @media (max-width: 768px) {
@@ -529,7 +529,7 @@ body, .container {
 .component-card {
     max-width: 320px;
     min-width: 220px;
-    margin: 12px auto;
+    margin: 12px 0;
     padding: 16px;
     border-radius: 16px;
     background: linear-gradient(120deg, #eaf6ff 60%, #e6f9f2 100%) !important;
