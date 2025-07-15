@@ -529,13 +529,16 @@ body, .container {
     position: relative;
     background: linear-gradient(120deg, #eaf6ff 60%, #e6f9f2 100%) !important;
     color: #23272f !important;
+    backdrop-filter: blur(15px);
+    padding: 28px;
     border-radius: 16px;
-    padding: 24px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
     transition: all 0.3s ease;
     border: 1.5px solid #e3e8ee !important;
     overflow: hidden;
-    display: flex;
     flex-direction: column;
 }
 
@@ -553,9 +556,12 @@ body, .container {
     border-left: 3px solid #4299e1;
 }
 
-/* Sửa màu icon nếu cần */
 .component-card i {
     color: #4299e1 !important;
+    background: linear-gradient(135deg, #4299e1, #3182ce);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .component-card:hover {
