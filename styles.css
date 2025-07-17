@@ -1151,9 +1151,14 @@ body, .container {
 
 /* Improved empty state */
 .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 250px;
+    width: 100%;
     text-align: center;
-    padding: 60px 20px;
-    color: #6c757d;
 }
 
 .empty-state i {
@@ -2111,12 +2116,14 @@ body.modal-open {
 
 /* Empty State Enhancement */
 .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 250px;
+    width: 100%;
     text-align: center;
-    padding: 60px 20px;
-    color: #a0aec0;
-    background: rgba(26, 32, 44, 0.5);
-    border-radius: 16px;
-    border: 2px dashed rgba(255, 255, 255, 0.1);
 }
 
 .empty-state i {
