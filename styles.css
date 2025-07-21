@@ -397,23 +397,24 @@ body, .container {
 
 /* Components Grid */
 .components-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(220px, 1fr));
-    gap: 16px;
-    margin-top: 24px;
-    justify-items: start;
-    align-items: start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 32px;
     overflow-x: auto;
-    padding-bottom: 8px;
-    min-height: 420px;
+    padding-bottom: 16px;
+    min-height: 280px;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
+    gap: 16px;
 }
 
 @media (max-width: 768px) {
     .components-grid {
-        grid-template-columns: 1fr;
-    gap: 20px;
+        flex-direction: column;
+        gap: 20px;
+        min-height: 220px;
     }
 }
 
