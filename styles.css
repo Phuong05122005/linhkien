@@ -1157,7 +1157,7 @@ body, .container {
     align-items: center;
     justify-content: center;
     height: 100%;
-    min-height: 412px;
+    min-height: 266px;
     width: 100%;
     text-align: center;
     padding: 40px 20px;
@@ -2134,15 +2134,21 @@ body.modal-open {
     align-items: center;
     justify-content: center;
     height: 100%;
-    min-height: 250px;
+    min-height: 266px;
     width: 100%;
     text-align: center;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #e3e8ee;
+    box-shadow: 0 2px 12px rgba(66,153,225,0.06);
+    position: relative;
 }
 
 .empty-state i {
     font-size: 4rem;
     color: #4299e1;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     opacity: 0.7;
 }
 
