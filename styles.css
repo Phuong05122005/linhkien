@@ -780,3 +780,166 @@ body, .container {
         margin: 10% auto;
     }
 }
+
+/* Add/Edit Component Modal - Professional layout overrides */
+.component-modal {
+    max-width: 1040px;
+    width: 95%;
+    border-radius: var(--radius-2xl);
+}
+
+/* Header spacing refinement */
+.component-modal .modal-header {
+    padding: var(--spacing-6) var(--spacing-8);
+}
+
+/* Two-column balanced layout */
+.component-modal .form-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--spacing-8);
+    align-items: start;
+    padding: var(--spacing-6) var(--spacing-8) 0 var(--spacing-8);
+}
+
+/* Left/Right column spacing */
+.component-modal .form-left,
+.component-modal .form-right {
+    display: grid;
+    gap: var(--spacing-5);
+}
+
+/* Row of two inputs with even spacing */
+.component-modal .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4);
+}
+
+/* Labels */
+.component-modal .form-group label {
+    display: block;
+    margin-bottom: var(--spacing-2);
+    font-weight: 600;
+    color: var(--gray-700);
+    font-size: var(--font-size-sm);
+}
+
+/* Inputs, selects, textarea unified look */
+.component-modal .form-group input,
+.component-modal .form-group select,
+.component-modal .form-group textarea {
+    width: 100%;
+    padding: var(--spacing-4) var(--spacing-4);
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    background: var(--white);
+    color: var(--gray-900);
+    font-size: var(--font-size-base);
+    transition: all 0.2s ease;
+}
+
+.component-modal .form-group input,
+.component-modal .form-group select {
+    height: 46px;
+}
+
+.component-modal .form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.component-modal .form-group input:focus,
+.component-modal .form-group select:focus,
+.component-modal .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+    transform: translateY(-1px);
+}
+
+/* Right column: image upload */
+.component-modal .image-upload-section label {
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: var(--spacing-2);
+}
+
+.component-modal .image-upload-area {
+    background: var(--gray-50);
+    border: 2px dashed var(--gray-300);
+    border-radius: var(--radius-xl);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-6);
+    text-align: center;
+}
+
+.component-modal #uploadPlaceholder {
+    color: var(--gray-500);
+}
+
+.component-modal #uploadPlaceholder i {
+    font-size: var(--font-size-3xl);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-2);
+}
+
+.component-modal .image-preview {
+    max-width: 100%;
+    max-height: 260px;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+    background: var(--white);
+}
+
+.component-modal .image-controls {
+    display: flex;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-3);
+}
+
+/* Quick info card */
+.component-modal .component-info-preview {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-5);
+}
+
+.component-modal .component-info-preview h4 {
+    margin-bottom: var(--spacing-3);
+    color: var(--gray-800);
+}
+
+.component-modal .info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    margin-bottom: var(--spacing-2);
+}
+
+.component-modal .info-label { color: var(--gray-600); }
+.component-modal .info-value { color: var(--gray-800); font-weight: 600; }
+
+/* Footer alignment */
+.component-modal .component-modal-footer {
+    padding: var(--spacing-5) var(--spacing-8);
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-3);
+}
+
+.component-modal .component-modal-footer .btn {
+    min-width: 120px;
+}
+
+/* Compact on smaller screens */
+@media (max-width: 1024px) {
+    .component-modal .form-layout {
+        grid-template-columns: 1fr;
+        padding: var(--spacing-6) var(--spacing-6) 0 var(--spacing-6);
+    }
+}
