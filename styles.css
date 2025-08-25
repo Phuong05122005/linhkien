@@ -943,3 +943,39 @@ body, .container {
         padding: var(--spacing-6) var(--spacing-6) 0 var(--spacing-6);
     }
 }
+
+/* Add/Edit Component Modal – edge spacing refinements */
+.component-modal form {
+    padding: 0 var(--spacing-8) var(--spacing-8) var(--spacing-8);
+    box-sizing: border-box;
+}
+
+/* Add a little top offset between header and first row */
+.component-modal .form-layout { 
+    margin-top: var(--spacing-4);
+}
+
+/* Ensure columns start aligned and have inner breathing room */
+.component-modal .form-left, 
+.component-modal .form-right {
+    align-content: start;
+}
+
+/* Slightly tighter group spacing but avoid crowding edges */
+.component-modal .form-group { 
+    margin-bottom: var(--spacing-4);
+}
+
+/* Footer buttons aligned right; remove left block to avoid crowding */
+.component-modal .component-modal-footer .footer-left { 
+    display: none;
+}
+.component-modal .component-modal-footer .footer-right { 
+    margin-left: auto;
+}
+
+/* Make cancel/save sit on one line and not hug the edges */
+.component-modal .component-modal-footer {
+    padding: var(--spacing-5) var(--spacing-8);
+    gap: var(--spacing-3);
+}
