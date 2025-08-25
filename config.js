@@ -57,25 +57,11 @@ const CONFIG = {
             showEditButtons: true,
             showDeleteButtons: true
         }
-    },
-    
-    // Cấu hình chia sẻ
-    SHARE: {
-        title: 'Hệ thống Quản lý Linh kiện',
-        description: 'Quản lý và sắp xếp linh kiện một cách hiệu quả',
-        url: window.location.href,
-        image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwMCIgaGVpZ2h0PSI2MzAiIHZpZXdCb3g9IjAgMCAxMjAwIDYzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEyMDAiIGhlaWdodD0iNjMwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjY3ZWVhO3N0b3Atb3BhY2l0eToxIiAvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3NjRiYTI7c3RvcC1vcGFjaXR5OjEiIC8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPHN2ZyB4PSI1MDAiIHk9IjMwMCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTIgMkM2LjQ4IDIgMiA2LjQ4IDIgMTJzNC40OCAxMCAxMCAxMCAxMC00LjQ4IDEwLTEwUzE3LjUyIDIgMTIgMnptMCAxOGMtNC40MSAwLTgtMy41OS04LTggMC00LjQxIDMuNTktOCA4LTggNC40MSAwIDggMy41OSA4IDggMCA0LjQxLTMuNTkgOC04IDh6bTAtMTRjLTMuMzEgMC02IDIuNjktNiA2czIuNjkgNiA2IDYgNi0yLjY5IDYtNi0yLjY5LTYtNi02em0wIDEwYy0yLjIxIDAtNC0xLjc5LTQtNHMxLjc5LTQgNC00IDQgMS43OSA0IDQtMS43OSA0LTQgNHoiLz4KPC9zdmc+Cjwvc3ZnPgo='
     }
 };
 
 // Hàm tiện ích
 const UTILS = {
-    // Tạo URL chia sẻ
-    createShareUrl: (path = '') => {
-        const baseUrl = CONFIG.BASE_URL;
-        return path ? `${baseUrl}/${path}` : baseUrl;
-    },
-    
     // Lấy thông tin vai trò
     getRoleInfo: (role) => {
         return {
@@ -101,29 +87,6 @@ const UTILS = {
             return requiredRoles.some(role => userRoles.includes(role));
         }
         return requiredRoles.includes(userRoles);
-    },
-    
-    // Tạo meta tags cho chia sẻ
-    createMetaTags: () => {
-        const meta = document.createElement('meta');
-        meta.setAttribute('property', 'og:title');
-        meta.setAttribute('content', CONFIG.SHARE.title);
-        document.head.appendChild(meta);
-        
-        const metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('property', 'og:description');
-        metaDesc.setAttribute('content', CONFIG.SHARE.description);
-        document.head.appendChild(metaDesc);
-        
-        const metaUrl = document.createElement('meta');
-        metaUrl.setAttribute('property', 'og:url');
-        metaUrl.setAttribute('content', CONFIG.SHARE.url);
-        document.head.appendChild(metaUrl);
-        
-        const metaImage = document.createElement('meta');
-        metaImage.setAttribute('property', 'og:image');
-        metaImage.setAttribute('content', CONFIG.SHARE.image);
-        document.head.appendChild(metaImage);
     }
 };
 

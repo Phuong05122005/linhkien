@@ -1,67 +1,81 @@
 # Hệ thống Quản lý Linh kiện
 
-## Tính năng mới: Lưu dữ liệu tạm thời
+## Mô tả
+Hệ thống quản lý và sắp xếp linh kiện một cách hiệu quả, hỗ trợ các chức năng cơ bản:
+- Thêm, sửa, xóa linh kiện
+- Quản lý chủ đề (danh mục)
+- Tìm kiếm và lọc linh kiện
+- Phân quyền người dùng theo vai trò
+- Giao diện đơn giản, dễ sử dụng
 
-### Mô tả
-Hệ thống hiện đã được cải tiến với tính năng **tự động lưu dữ liệu tạm thời** khi bạn nhập thông tin linh kiện. Điều này giúp bạn không bị mất dữ liệu khi:
-- Tắt trình duyệt đột ngột
-- Đăng xuất và đăng nhập lại
-- Chuyển sang tab khác
-- Gặp sự cố mạng
+## Tính năng chính
 
-### Cách hoạt động
+### 1. Quản lý linh kiện
+- Thêm linh kiện mới với đầy đủ thông tin
+- Thêm nhanh linh kiện cho các trường hợp đơn giản
+- Chỉnh sửa thông tin linh kiện
+- Xóa linh kiện (chỉ admin)
+- Upload hình ảnh linh kiện
 
-#### 1. Tự động lưu
-- Khi bạn nhập bất kỳ thông tin nào vào form "Thêm Linh kiện", dữ liệu sẽ được tự động lưu vào localStorage
-- Dữ liệu được lưu theo thời gian thực khi bạn gõ
-- Bao gồm tất cả các trường: tên, chủ đề, số lượng, mức độ ưu tiên, người soạn, người kiểm tra, mô tả, vị trí và hình ảnh
+### 2. Quản lý chủ đề
+- Thêm chủ đề mới
+- Xóa chủ đề không sử dụng
+- Lọc linh kiện theo chủ đề
 
-#### 2. Tự động khôi phục
-- Khi bạn mở lại form "Thêm Linh kiện", hệ thống sẽ tự động kiểm tra xem có dữ liệu đã lưu không
-- Nếu có, dữ liệu sẽ được điền lại vào form
-- Bạn sẽ thấy thông báo: "Đã khôi phục dữ liệu bạn đã nhập trước đó!"
+### 3. Tìm kiếm và lọc
+- Tìm kiếm theo tên linh kiện
+- Lọc theo trạng thái (Chờ kiểm tra, Đã kiểm tra, Tất cả)
+- Lọc theo chủ đề
 
-#### 3. Xóa dữ liệu tạm thời
-- Nút "Xóa dữ liệu tạm thời" sẽ xuất hiện ở góc trái dưới form khi có dữ liệu đã lưu
-- Nhấn nút này để xóa dữ liệu tạm thời và reset form
-- Dữ liệu cũng sẽ tự động bị xóa khi:
-  - Bạn lưu linh kiện thành công
-  - Bạn reset form
-  - Dữ liệu quá cũ (sau 24 giờ)
+### 4. Phân quyền người dùng
+- **Người soạn linh kiện**: Thêm, sửa linh kiện
+- **Người kiểm tra**: Xem và cập nhật trạng thái
+- **Quản trị viên**: Toàn quyền quản lý hệ thống
 
-### Lưu ý quan trọng
+### 5. Giao diện
+- Responsive design cho mobile và desktop
+- Giao diện đơn giản, dễ sử dụng
+- Thống kê nhanh về số lượng linh kiện, chủ đề, nhân viên
 
-1. **Chỉ hoạt động với form "Thêm Linh kiện"**: Tính năng này chỉ hoạt động khi thêm linh kiện mới, không áp dụng cho việc sửa linh kiện
+## Cách sử dụng
 
-2. **Dữ liệu chỉ lưu trên trình duyệt hiện tại**: Dữ liệu không đồng bộ giữa các thiết bị hoặc trình duyệt khác nhau
+### Đăng nhập
+1. Mở file `login.html`
+2. Nhập tên đăng nhập và mật khẩu
+3. Liên hệ quản trị viên để được cấp tài khoản
 
-3. **Tự động xóa sau 24 giờ**: Để tránh tích tụ dữ liệu cũ, hệ thống sẽ tự động xóa dữ liệu sau 24 giờ
+### Thêm linh kiện
+1. Nhấn nút "Thêm Linh kiện"
+2. Điền đầy đủ thông tin bắt buộc
+3. Chọn hình ảnh (tùy chọn)
+4. Nhấn "Lưu"
 
-4. **Không ảnh hưởng đến dữ liệu chính**: Dữ liệu tạm thời hoàn toàn tách biệt với dữ liệu linh kiện đã lưu
+### Thêm nhanh
+1. Nhấn nút "Thêm Nhanh"
+2. Điền thông tin cơ bản
+3. Nhấn "Thêm Nhanh"
 
-### Cách sử dụng
+### Quản lý chủ đề
+1. Nhấn nút "Quản lý Chủ đề"
+2. Thêm chủ đề mới hoặc xóa chủ đề cũ
 
-1. **Thêm linh kiện mới**:
-   - Nhấn nút "Thêm Linh kiện"
-   - Bắt đầu nhập thông tin
-   - Dữ liệu sẽ được tự động lưu
+## Cấu trúc file
 
-2. **Khôi phục dữ liệu**:
-   - Mở lại form "Thêm Linh kiện"
-   - Dữ liệu sẽ tự động được điền lại
-   - Tiếp tục nhập hoặc lưu
+- `login.html` - Trang đăng nhập
+- `app.html` - Trang chính quản lý linh kiện
+- `config.js` - Cấu hình hệ thống
+- `script.js` - Logic chính của ứng dụng
+- `login-script.js` - Logic đăng nhập
+- `styles.css` - CSS cho trang chính
+- `login-styles.css` - CSS cho trang đăng nhập
 
-3. **Xóa dữ liệu tạm thời**:
-   - Nhấn nút "Xóa dữ liệu tạm thời" (nếu có)
-   - Form sẽ được reset hoàn toàn
+## Hỗ trợ kỹ thuật
 
-### Hỗ trợ kỹ thuật
-
-Nếu gặp vấn đề với tính năng này, hãy:
-1. Kiểm tra xem trình duyệt có hỗ trợ localStorage không
-2. Thử xóa cache trình duyệt
-3. Kiểm tra xem có add-on nào chặn localStorage không
+Nếu gặp vấn đề, hãy:
+1. Kiểm tra console trình duyệt để xem lỗi
+2. Đảm bảo tất cả file được tải đúng
+3. Kiểm tra quyền truy cập file
 
 ---
 
-**Lưu ý**: Tính năng này được thiết kế để cải thiện trải nghiệm người dùng và giảm thiểu việc mất dữ liệu. Hãy sử dụng một cách hợp lý và thường xuyên lưu dữ liệu chính thức. 
+**Lưu ý**: Hệ thống được thiết kế đơn giản, dễ sử dụng và bảo trì. Tập trung vào các chức năng cốt lõi của việc quản lý linh kiện. 

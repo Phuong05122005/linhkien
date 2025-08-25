@@ -1061,41 +1061,7 @@ body, .container {
     }
 }
 
-/* Floating action button for mobile */
-.fab {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #4CAF50, #45a049);
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-}
 
-.fab:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
-}
-
-@media (max-width: 768px) {
-    .fab {
-        display: flex;
-    }
-    
-    .action-buttons {
-        display: none;
-    }
-}
 
 /* Improved scrollbar for mobile */
 @media (max-width: 768px) {
@@ -1193,53 +1159,7 @@ body, .container {
     font-weight: 400;
 }
 
-/* Quick actions for mobile */
-.quick-actions {
-    display: none;
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    flex-direction: column;
-    gap: 10px;
-    z-index: 999;
-}
 
-.quick-action-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: none;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.quick-action-btn.add {
-    background: linear-gradient(45deg, #4CAF50, #45a049);
-}
-
-.quick-action-btn.quick {
-    background: linear-gradient(45deg, #28a745, #20c997);
-}
-
-.quick-action-btn.categories {
-    background: linear-gradient(45deg, #ffc107, #e0a800);
-}
-
-.quick-action-btn:hover {
-    transform: scale(1.1);
-}
-
-@media (max-width: 768px) {
-    .quick-actions.show {
-        display: flex;
-    }
-}
 
 /* Enhanced search experience */
 .search-section {
@@ -1510,107 +1430,6 @@ body, .container {
     opacity: 0.8;
 }
 
-/* Merged components display */
-.merged-components-section {
-    background: rgba(26, 32, 44, 0.8);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(66, 153, 225, 0.2);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 32px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.merged-components-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #4299e1, #48bb78, #ed8936, #f56565);
-}
-
-.merged-components-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.merged-components-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #e2e8f0;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.merged-components-title i {
-    color: #4299e1 !important;
-    font-size: 1.3rem;
-}
-
-.merged-components-count {
-    background: linear-gradient(135deg, #4299e1, #3182ce);
-    color: white;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
-}
-
-.merged-component-item {
-    background: rgba(45, 55, 72, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-}
-
-.merged-component-item:hover {
-    background: rgba(45, 55, 72, 0.8);
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-.merged-component-info {
-    flex: 1;
-}
-
-.merged-component-name {
-    font-weight: 700;
-    color: #e2e8f0;
-    margin-bottom: 6px;
-    font-size: 1.1rem;
-}
-
-.merged-component-details {
-    font-size: 0.9rem;
-    color: #a0aec0;
-}
-
-.merged-component-total {
-    background: linear-gradient(135deg, #48bb78, #38a169);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    min-width: 50px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(72, 187, 120, 0.3);
-}
-
 /* Responsive design for multi-category filter */
 @media (max-width: 768px) {
     .category-filter-dropdown {
@@ -1633,15 +1452,7 @@ body, .container {
         max-height: 150px;
     }
     
-    .merged-component-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .merged-component-total {
-        align-self: flex-end;
-    }
+
 }
 
 /* Loading state for filter */
@@ -1661,35 +1472,7 @@ body, .container {
     margin-left: auto;
 }
 
-/* Empty state for merged results */
-.merged-empty-state {
-    text-align: center;
-    padding: 40px 20px;
-    color: #a0aec0;
-    background: rgba(45, 55, 72, 0.3);
-    border-radius: 12px;
-    border: 2px dashed rgba(255, 255, 255, 0.1);
-}
-
-.merged-empty-state i {
-    font-size: 3rem;
-    margin-bottom: 15px;
-    opacity: 0.7;
-    color: #4299e1;
-}
-
-.merged-empty-state h4 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-    color: #e2e8f0;
-    font-weight: 600;
-}
-
-.merged-empty-state p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #a0aec0;
-} 
+ 
 
 /* Modal footer fixed for add/edit component */
 .component-modal-footer, .modal-footer, .form-actions {
@@ -2416,7 +2199,7 @@ body.modal-open {
   min-height: 0;
 }
 
-.users-table-container, .password-table-container, .categories-container, .components-grid, .merged-components-section {
+.users-table-container, .password-table-container, .categories-container, .components-grid {
   max-height: 60vh !important;
   overflow-y: auto !important;
   background: #fff;
@@ -2488,16 +2271,16 @@ label {
   .modal-header, .modal-footer, .component-modal-footer, .modal-body, .form-layout {
     padding: 10px 4vw;
   }
-  .users-table-container, .password-table-container, .categories-container, .components-grid, .merged-components-section {
+  .users-table-container, .password-table-container, .categories-container, .components-grid {
     max-height: 40vh !important;
   }
 }
 
-.users-table-container::-webkit-scrollbar, .password-table-container::-webkit-scrollbar, .categories-container::-webkit-scrollbar, .components-grid::-webkit-scrollbar, .merged-components-section::-webkit-scrollbar, .modal-body::-webkit-scrollbar, .form-layout::-webkit-scrollbar {
+.users-table-container::-webkit-scrollbar, .password-table-container::-webkit-scrollbar, .categories-container::-webkit-scrollbar, .components-grid::-webkit-scrollbar, .modal-body::-webkit-scrollbar, .form-layout::-webkit-scrollbar {
   width: 8px;
   background: #eaf1fb;
 }
-.users-table-container::-webkit-scrollbar-thumb, .password-table-container::-webkit-scrollbar-thumb, .categories-container::-webkit-scrollbar-thumb, .components-grid::-webkit-scrollbar-thumb, .merged-components-section::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb, .form-layout::-webkit-scrollbar-thumb {
+.users-table-container::-webkit-scrollbar-thumb, .password-table-container::-webkit-scrollbar-thumb, .categories-container::-webkit-scrollbar-thumb, .components-grid::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb, .form-layout::-webkit-scrollbar-thumb {
   background: #bfc9d9;
   border-radius: 8px;
 } 
@@ -2526,19 +2309,19 @@ label {
 }
 
 /* Thanh cuộn nổi bật cho modal và bảng */
-.form-layout, .modal-body, .users-table-container, .categories-container, .components-grid, .merged-components-section, .password-table-container {
+.form-layout, .modal-body, .users-table-container, .categories-container, .components-grid, .password-table-container {
   scrollbar-width: thin;
   scrollbar-color: #4299e1 #eaf1fb;
 }
-.form-layout::-webkit-scrollbar, .modal-body::-webkit-scrollbar, .users-table-container::-webkit-scrollbar, .categories-container::-webkit-scrollbar, .components-grid::-webkit-scrollbar, .merged-components-section::-webkit-scrollbar, .password-table-container::-webkit-scrollbar {
+.form-layout::-webkit-scrollbar, .modal-body::-webkit-scrollbar, .users-table-container::-webkit-scrollbar, .categories-container::-webkit-scrollbar, .components-grid::-webkit-scrollbar, .password-table-container::-webkit-scrollbar {
   width: 10px;
   background: #eaf1fb;
 }
-.form-layout::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb, .users-table-container::-webkit-scrollbar-thumb, .categories-container::-webkit-scrollbar-thumb, .components-grid::-webkit-scrollbar-thumb, .merged-components-section::-webkit-scrollbar-thumb, .password-table-container::-webkit-scrollbar-thumb {
+.form-layout::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb, .users-table-container::-webkit-scrollbar-thumb, .categories-container::-webkit-scrollbar-thumb, .components-grid::-webkit-scrollbar-thumb, .password-table-container::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, #4299e1 40%, #90cdf4 100%);
   border-radius: 8px;
 }
-.form-layout::-webkit-scrollbar-thumb:hover, .modal-body::-webkit-scrollbar-thumb:hover, .users-table-container::-webkit-scrollbar-thumb:hover, .categories-container::-webkit-scrollbar-thumb:hover, .components-grid::-webkit-scrollbar-thumb:hover, .merged-components-section::-webkit-scrollbar-thumb:hover, .password-table-container::-webkit-scrollbar-thumb:hover {
+.form-layout::-webkit-scrollbar-thumb:hover, .modal-body::-webkit-scrollbar-thumb:hover, .users-table-container::-webkit-scrollbar-thumb:hover, .categories-container::-webkit-scrollbar-thumb:hover, .components-grid::-webkit-scrollbar-thumb:hover, .password-table-container::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #3182ce 0%, #63b3ed 100%);
 } 
 
