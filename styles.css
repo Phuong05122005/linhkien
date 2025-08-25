@@ -1020,3 +1020,16 @@ body, .container {
         max-height: calc(96vh - 220px);
     }
 }
+
+/* Prevent last fields from being hidden behind sticky footer */
+.modal-content.component-modal form {
+    padding-bottom: 120px; /* space for footer */
+}
+
+/* Keep modal header visible while scrolling */
+.modal-content.component-modal .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 1px 0 0 var(--gray-200);
+}
