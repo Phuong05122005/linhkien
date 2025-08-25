@@ -1023,7 +1023,12 @@ body, .container {
 
 /* Prevent last fields from being hidden behind sticky footer */
 .modal-content.component-modal form {
-    padding-bottom: 120px; /* space for footer */
+    padding-bottom: 88px; /* approx footer height to avoid overlap without big gap */
+}
+
+/* Smoother scrolling inside modal form */
+.modal-content.component-modal form {
+    scroll-behavior: smooth;
 }
 
 /* Keep modal header visible while scrolling */
